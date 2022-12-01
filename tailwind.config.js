@@ -13,7 +13,11 @@ module.exports = {
       adminNav: "#F0FFCE",
       slate: "#D9D9D9",
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        inter: "Inter",
+      },
+    },
   },
   plugins: [],
 };
