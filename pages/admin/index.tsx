@@ -1,11 +1,186 @@
 import React from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from "chart.js";
+
+import { Bar, Pie } from "react-chartjs-2";
 import SidebarWithHeader from "../../components/Sidenav";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement
+);
+
+const data = {
+  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+  datasets: [
+    {
+      label: "# of Votes",
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+      ],
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
+      borderWidth: 1,
+    },
+  ],
+};
+
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top" as const,
+    },
+    title: {
+      display: true,
+      text: "Analytics",
+    },
+  },
+};
+
+const labels = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
+const data2 = {
+  labels,
+  datasets: [
+    {
+      label: "Visitors",
+      data: [12, 19, 3, 5, 2, 4, 3],
+      backgroundColor: "#4C230A",
+    },
+    {
+      label: "Dataset 2",
+      data: [12, 19, 3, 5, 2, 4, 3],
+      backgroundColor: "rgba(53, 162, 235, 0.5)",
+    },
+  ],
+};
 
 const dashboard = () => {
   return (
     <SidebarWithHeader>
-      <p>Hefllo</p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti aliquid inventore maiores assumenda! Beatae illo facilis quod aliquid mollitia ullam. Laboriosam saepe quasi ducimus enim eum doloribus, quod ullam! Officiis autem, commodi similique necessitatibus voluptatem quidem quia esse voluptatibus maxime quas quae, est tempore tenetur architecto atque quo quasi eum unde iure praesentium molestias ea. In ab obcaecati cumque aspernatur rem. Ratione, nostrum maiores ullam exercitationem nobis sed eveniet quidem quisquam aliquid facere magni vitae! Dignissimos soluta voluptatibus tempora atque ipsa dolor explicabo veniam? Nemo cupiditate earum, maxime aliquid amet accusamus? Facilis explicabo, minus ipsum qui, quo perspiciatis facere cum quis temporibus vel soluta voluptatum vero autem ex rerum! Reprehenderit temporibus, voluptatum deleniti nulla possimus recusandae vitae ea maxime voluptatem. Cumque repellat dolores provident, mollitia, officia veritatis itaque minima illo odio dolore ratione asperiores. Voluptate enim odio blanditiis consectetur aut velit voluptatem, hic, explicabo, itaque laudantium perspiciatis cupiditate omnis temporibus sapiente quas quaerat? Nisi voluptates autem doloribus quod perspiciatis alias ad quidem dolor consectetur praesentium ipsa asperiores ab officiis explicabo, dolores eveniet impedit harum voluptatem optio laboriosam, natus doloremque voluptate! Quam voluptate nisi sed nesciunt sit doloremque doloribus expedita ab quos deserunt blanditiis voluptatibus non porro quia odio, fuga tempore perspiciatis laborum aliquid rerum maiores, dolores magnam deleniti quis? Esse ad id mollitia doloribus, aspernatur ex corporis, distinctio molestiae aut assumenda excepturi, nam blanditiis labore nostrum sint ipsam vero libero numquam velit a. Quasi quis est quaerat exercitationem. Est recusandae ullam nisi asperiores, quas laudantium! Sit repudiandae odio possimus, fuga quidem molestiae perspiciatis quo qui quas. Expedita laboriosam animi, velit voluptatum ea nam assumenda dignissimos placeat doloremque quod. Optio ullam repellat velit! Nemo nesciunt quibusdam voluptatibus, quia eum accusamus ex atque officia veniam, eligendi soluta eos nulla! Vitae voluptatibus fugiat id a adipisci quam voluptas asperiores facilis possimus rem. Non odio ullam architecto reprehenderit consectetur consequatur aspernatur deleniti atque dolorem distinctio. Voluptate nobis quibusdam saepe. Voluptatibus, doloribus cum laudantium sapiente non aperiam reiciendis ut magni laborum quia voluptates numquam saepe dicta voluptatem officia, architecto ab iure iusto impedit nesciunt itaque nihil aut consequuntur assumenda! Illum natus veniam ex beatae, temporibus debitis reprehenderit inventore. Molestiae dolores, qui tempore dolore odio veniam ullam atque exercitationem sed, quaerat, cum error doloribus ipsa nemo rerum quae eius vel earum? Commodi voluptate itaque architecto, officia ut assumenda eligendi. Placeat non quo magnam officia! Reprehenderit, perferendis. Fugiat suscipit, quos sunt excepturi nostrum odit officia aliquam a sequi exercitationem voluptates ipsa consequuntur ab eveniet ipsam veniam vel? Earum in, ducimus adipisci beatae perferendis rem, sunt saepe exercitationem modi consectetur vero laboriosam ipsa minima enim esse quisquam minus! Molestias incidunt minima quas quisquam nihil? Fugiat quibusdam, voluptatem dolore labore, quaerat mollitia in eaque expedita tempora molestias fuga amet perferendis quas odio exercitationem? Maiores nam deleniti et esse possimus iste. Cum nobis eligendi voluptatem expedita officiis modi accusamus sapiente voluptate dolores? Veritatis, illo cupiditate ut explicabo nisi natus necessitatibus nam nobis iste repudiandae facere debitis optio, consectetur similique eveniet ab nostrum. Asperiores maiores libero ea ullam impedit. Eaque reprehenderit quae velit id, officiis aliquam neque, est sit voluptatum iste repellat quisquam rem laboriosam eveniet et laudantium accusamus exercitationem sapiente! Omnis tempore laboriosam optio, culpa molestiae quos blanditiis non quidem odio hic, unde ullam nulla excepturi dolores minima voluptatibus qui. Qui consequuntur expedita corrupti beatae cumque enim, nihil ut nemo quasi tempore, iusto recusandae quo autem ratione error est id sunt harum itaque molestiae omnis consectetur obcaecati ad. Nam, repudiandae. Maiores quaerat atque cupiditate quos eius sed, fugiat saepe repudiandae ea corrupti nesciunt rem aliquid ducimus. Nostrum iusto quidem explicabo dolore assumenda, ea illo, porro earum expedita, rem ab. Ex rem saepe sapiente? Ad mollitia eaque magni exercitationem iure! Minus, dolorum quos, sequi non libero dolorem facere doloremque iusto mollitia molestiae ducimus ex, quidem temporibus porro neque obcaecati illum omnis. Minima, repellendus, mollitia quod maiores officia aspernatur asperiores unde minus nemo, debitis quam odio eos? Assumenda, optio sint. Vel qui sed pariatur natus officiis dolor voluptate nisi vero nobis assumenda corporis amet laboriosam consequuntur, optio eaque modi omnis nemo explicabo, blanditiis hic recusandae sint ex accusamus cupiditate! Nemo aperiam inventore deserunt praesentium porro molestias rem, reiciendis eum, saepe consequatur dolore distinctio ratione similique animi magni officiis itaque architecto exercitationem incidunt. Dignissimos est necessitatibus, neque similique sint, accusantium sapiente, officiis dicta corrupti fuga aspernatur magnam? Adipisci quas eos quasi amet quod itaque? Ipsam, facilis. Deleniti cumque, voluptatem quibusdam id earum libero facilis numquam? Consectetur facilis, ducimus cum id, ut enim, labore similique commodi voluptate officia accusamus asperiores laborum ipsam officiis magnam dolor quisquam! Magnam, tenetur. Esse architecto veniam dolores illum ipsam voluptatibus, optio numquam ipsum eligendi similique dicta animi! Voluptatibus nesciunt tempore corrupti ducimus, repellat modi et maxime explicabo maiores, ratione saepe, iste ipsam. Ipsum fuga magni officiis perferendis eius quia unde ducimus, nesciunt corporis reprehenderit excepturi adipisci illo totam, dolor deleniti facilis consequatur distinctio quas explicabo aspernatur quos quis cupiditate eaque porro. Illo deleniti minus impedit, consectetur libero quidem. Assumenda, optio, minima repellat officiis rerum est explicabo repudiandae, atque quam ex nam magnam aliquid odit suscipit doloremque accusantium obcaecati distinctio praesentium ea amet. Perferendis aperiam dolor odit minima consequuntur, eveniet vitae at ducimus repellendus vel excepturi? Ipsum voluptatum pariatur facere excepturi eligendi corporis, sequi, esse quidem debitis labore ab architecto quas distinctio obcaecati aut libero molestias hic voluptatem non ullam totam. Cumque vitae perferendis eveniet veniam libero aut sed voluptas odio reprehenderit ad architecto, velit voluptates quod dolor iste inventore temporibus officia vel nisi eos assumenda quos? A earum laborum corporis placeat ad, facere accusamus adipisci odit possimus alias amet rerum, culpa dignissimos totam nobis libero aperiam! Tenetur explicabo recusandae mollitia quibusdam cupiditate illo fuga soluta, unde eos non. Ipsam impedit velit recusandae magni ea dolore natus nam sint quos! Ad quis alias tenetur consectetur temporibus cupiditate debitis officia sed nobis necessitatibus suscipit aspernatur, dicta accusantium ullam, ducimus velit porro? Doloribus, ut labore. Officia quidem adipisci odit fugiat quaerat, facilis debitis? Minus autem, temporibus dolorem tenetur quis voluptate beatae ex molestias veritatis debitis, voluptatem fugiat! Libero accusantium totam tempore deleniti.
+      <div>
+        <div className="container px-6 mx-auto grid">
+          <h2 className="my-6 text-2xl font-semibold text-gray-700">
+            Dashboard
+          </h2>
+
+          <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+            <div className="flex items-center p-4 bg-white rounded-lg shadow-xs">
+              <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full">
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                </svg>
+              </div>
+              <div>
+                <p className="mb-2 text-sm font-medium text-gray-600">
+                  Total Users
+                </p>
+                <p className="text-lg font-semibold text-gray-700">19238</p>
+              </div>
+            </div>
+            <div className="flex items-center p-4 bg-white rounded-lg shadow-xs">
+              <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full">
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                </svg>
+              </div>
+              <div>
+                <p className="mb-2 text-sm font-medium text-gray-600">
+                  User active
+                </p>
+                <p className="text-lg font-semibold text-gray-700">120</p>
+              </div>
+            </div>
+            <div className="flex items-center p-4 bg-white rounded-lg shadow-xs">
+              <div className="p-3 mr-4 text-red-500 bg-red-100 rounded-full">
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                </svg>
+              </div>
+              <div>
+                <p className="mb-2 text-sm font-medium text-gray-600">
+                  Users suspend
+                </p>
+                <p className="text-lg font-semibold text-gray-700">6389</p>
+              </div>
+            </div>
+            <div className="flex items-center p-4 bg-white rounded-lg shadow-xs">
+              <div className="p-3 mr-4 text-yellow-500 bg-yellow-100 rounded-full">
+                <svg
+                  className="w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+              </div>
+              <div>
+                <p className="mb-2 text-sm font-medium text-gray-600">
+                  User vip
+                </p>
+                <p className="text-lg font-semibold text-gray-700">828</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex gap-4 items-center justify-center w-[100%] h-80 border">
+        
+      <Bar options={options} data={data2} />
+      <Pie data={data} />
+      </div>
     </SidebarWithHeader>
   );
 };
