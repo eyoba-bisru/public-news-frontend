@@ -4,7 +4,7 @@ import SidebarWithHeader from "../components/Sidenav";
 const company = () => {
   return (
     <SidebarWithHeader>
-      <p>Companies</p>
+      <p>Company</p>
     </SidebarWithHeader>
   );
 };
