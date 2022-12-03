@@ -4,6 +4,8 @@ import { GrClose } from "react-icons/gr";
 import { BsSearch } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const data = [
   "Home",
@@ -23,7 +25,11 @@ data2.push("More");
 
 const data3 = data.slice(5);
 
-const UserNavbar = () => {
+type Props = {
+  route?: string;
+};
+
+const UserNavbar = ({ route }: Props) => {
   const [open, setOpen] = useState(false);
   const [screen, setScreen] = useState<number>(0);
 
@@ -102,12 +108,32 @@ const UserNavbar = () => {
         </div>
         <div className="flex gap-4 justify-center items-center">
           <BsSearch className="h-6 w-6 cursor-pointer text-secondary" />
-          <div className="bg-white hover:bg-slate cursor-pointer font-medium text-text rounded-md px-2 py-1 text-sm">
-            Login
-          </div>
-          <div className="bg-primary hover:bg-secondary cursor-pointer font-medium text-white rounded-md px-2 py-1 text-sm">
-            Sign up
-          </div>
+          {route == "/auth/login" ? (
+            <Link href="/auth/signup">
+              <div className="bg-primary hover:bg-secondary cursor-pointer font-medium text-white rounded-md px-2 py-1 text-sm">
+                Sign up
+              </div>
+            </Link>
+          ) : route == "/auth/signup" ? (
+            <Link href="/auth/login">
+              <div className="bg-white hover:bg-slate cursor-pointer font-medium text-text rounded-md px-2 py-1 text-sm">
+                Login
+              </div>
+            </Link>
+          ) : (
+            <>
+              <Link href="/auth/login">
+                <div className="bg-white hover:bg-slate cursor-pointer font-medium text-text rounded-md px-2 py-1 text-sm">
+                  Login
+                </div>
+              </Link>
+              <Link href="/auth/signup">
+                <div className="bg-primary hover:bg-secondary cursor-pointer font-medium text-white rounded-md px-2 py-1 text-sm">
+                  Sign up
+                </div>
+              </Link>
+            </>
+          )}
         </div>
         <BiMenuAltRight
           onClick={() => {
