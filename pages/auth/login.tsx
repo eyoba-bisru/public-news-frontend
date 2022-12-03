@@ -6,7 +6,7 @@ import PasswordInput from "../../components/PasswordInput";
 
 const Login = () => {
   return (
-    <div className="w-screen flex flex-col justify-center items-center">
+    <div className="w-screen flex flex-col justify-between items-center">
       <Head>
         <title>Login</title>
       </Head>

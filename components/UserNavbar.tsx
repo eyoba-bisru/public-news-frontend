@@ -25,13 +25,14 @@ const data3 = data.slice(5);
 
 const UserNavbar = () => {
   const [open, setOpen] = useState(false);
-  const [screen, setScreen] = useState(0);
+  const [screen, setScreen] = useState<number>(0);
 
   function handleScreen() {
     setScreen(window.innerWidth);
   }
 
   useEffect(() => {
+    setScreen(window.innerWidth);
     window.addEventListener("resize", handleScreen);
 
     return () => {
@@ -44,48 +45,19 @@ const UserNavbar = () => {
       <div className="w-screen max-w-[1200px] h-full bg-userNav flex justify-between items-center px-6 md:px-6">
         <div className="font-extrabold text-[26px] text-text">END.</div>
         <div
-          className={`fixed transition-all right-0 top-[48.6px] bg-userNav z-10 w-[50vw] justify-center items-center ${
+          className={`fixed transition-all right-0 top-[48.6px] bg-userNav z-10 w-[100vw] justify-center items-center ${
             open ? "translate-x-0" : "translate-x-[100%]"
           } md:flex md:translate-x-0 md:static md:w-auto`}
         >
-          <ul className="flex flex-col md:flex-row md:gap-4">
-            {/* {data2.map((menu) => {
-              if (menu == "More") {
-                return (
-                  <Menu>
-                    <MenuButton>
-                      <div className="hover:shadow text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[50vw] font-medium md:w-auto">
-                        Menu
-                        <AiFillCaretDown />
-                      </div>
-                    </MenuButton>
-                    <MenuList bgColor="rgb(188 185 147)">
-                      <div className="bg-userNav">
-                        {data3.map((menu) => {
-                          return (
-                            <MenuItem bg="rgb(188 185 147)">
-                              <div className="w-full text-text text-[14px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center font-medium">
-                                {menu}
-                              </div>
-                            </MenuItem>
-                          );
-                        })}
-                      </div>
-                    </MenuList>
-                  </Menu>
-                );
-              }
-              return (
-                <li className="hover:shadow text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[50vw] font-medium md:w-auto">
-                  {menu}
-                </li>
-              );
-            })} */}
-
+          <ul
+            className={` md:flex-row md:gap-4 ${
+              screen < 768 ? "grid grid-cols-4" : "flex flex-col"
+            }`}
+          >
             {screen < 768
               ? data.map((menu) => {
                   return (
-                    <li className="hover:shadow text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[50vw] font-medium md:w-auto">
+                    <li className="hover:shadow text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[25vw] font-medium md:w-auto">
                       {menu}
                     </li>
                   );
@@ -100,7 +72,11 @@ const UserNavbar = () => {
                             <AiFillCaretDown />
                           </div>
                         </MenuButton>
-                        <MenuList bgColor="rgb(188 185 147)">
+                        <MenuList
+                          bgColor="rgb(188 185 147)"
+                          display="grid"
+                          gridTemplateColumns="2"
+                        >
                           <div className="bg-userNav">
                             {data3.map((menu) => {
                               return (
