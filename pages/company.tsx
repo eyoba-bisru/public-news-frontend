@@ -1,15 +1,53 @@
 import React from "react";
 import SidebarWithHeader from "../components/Sidenav";
 import { FiEdit } from "react-icons/fi";
-
+import {
+  Modal,
+  ModalOverlay,
+  Button,
+  Box,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 import { MdDeleteForever } from "react-icons/md";
+import { useDisclosure } from "@chakra-ui/react";
+import { useMediaQuery } from "@chakra-ui/react";
 
 const company = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
+
   return (
     <SidebarWithHeader>
       <div className="flex flex-col gap-10 h-screen">
         <div className="flex justify-between ">
           <p className=" text-primary text-[23.165px] ">News Companies</p>
+          <div>
+            <Button onClick={onOpen}>Open Modal</Button>
+
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalContent
+                h="200px"
+                maxW="52rem"
+                marginBlock="36"
+                marginLeft="24"
+              >
+                <Box>
+                  <ModalHeader>Add News Comapny</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Est ad quas aperiam tenetur ipsum officia tempore iste quasi
+                    nisi perspiciatis expedita quod nobis, assumenda porro
+                    consectetur quae laboriosam perferendis molestias!
+                  </ModalBody>
+                </Box>
+              </ModalContent>
+            </Modal>
+          </div>
         </div>
 
         <table className="min-w-full border-collapse block md:table">
