@@ -15,28 +15,32 @@ import {
 } from "@chakra-ui/react";
 import { MdDeleteForever } from "react-icons/md";
 import { AiFillPlusCircle } from "react-icons/ai";
+import Head from "next/head";
 const company = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <SidebarWithHeader>
+      <Head>
+        <title>Company</title>
+      </Head>
       <div className="flex flex-col gap-10 h-screen">
-        <div className="flex justify-between ">
-          <p className=" text-primary text-[23.165px] ">News Companies</p>
+        <div className="flex justify-between">
+          <p className=" text-primary text-[23.165px]">News Companies</p>
           <div>
             <div
               onClick={onOpen}
-              className="flex bg-primary gap-3 px-4 py-3 mr-14 rounded-md cursor-pointer"
+              className="flex bg-primary gap-2 px-6 py-2 mr-14 rounded-md cursor-pointer"
             >
-              <button className=" text-white inline">Add</button>
-              <AiFillPlusCircle className="text-white  text-2xl " />
+              <button className="text-white inline">Add</button>
+              <AiFillPlusCircle className="text-white text-2xl" />
             </div>
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalContent
                 h="370px"
                 maxW="52rem"
                 marginBlock="36"
-                marginLeft="24"
+                // marginLeft="24"
               >
                 <Box>
                   <ModalHeader className="text-primary text-[19.21px] text-center">
@@ -107,7 +111,7 @@ const company = () => {
                         bg="#4C230A"
                         _hover={{ bg: "#A53F2B" }}
                         color="white"
-                        width="60%"
+                        width="40%"
                         paddingY="5"
                       >
                         Add
