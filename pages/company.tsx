@@ -25,8 +25,10 @@ const company = () => {
         <title>Company</title>
       </Head>
       <div className="flex flex-col gap-10 h-screen">
-        <div className="flex justify-between">
-          <p className=" text-primary text-[23.165px]">News Companies</p>
+        <div className="flex justify-between items-center">
+          <p className=" text-primary text-[23.165px] font-bold">
+            News Companies
+          </p>
           <div>
             <div
               onClick={onOpen}
@@ -48,9 +50,9 @@ const company = () => {
                   </ModalHeader>
                   <ModalCloseButton className="text-secondary" />
                   <ModalBody>
-                    <form className="flex flex-col items-center mt-4 gap-4">
+                    <form className="flex flex-col justify-center items-center mt-4 gap-4">
                       <div className="flex w-full justify-center items-center gap-4">
-                        <div className="flex flex-col gap-4 w-2/5 jusitfy-center">
+                        <div className="flex flex-col items-center gap-4 w-2/5 jusitfy-center">
                           <InputGroup>
                             <Input
                               type="text"
@@ -98,10 +100,10 @@ const company = () => {
                             <span className="mt-1 ml-4 text-gray-400">
                               Logo
                             </span>
-                            <span className="sr-only  "></span>
+                            <span className="sr-only"></span>
                             <input
                               type="file"
-                              className=" ml-6 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                              className="ml-6 block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-secondary"
                             />
                           </InputGroup>
                         </div>
