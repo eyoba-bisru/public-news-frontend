@@ -20,17 +20,14 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import {
-  FiMenu,
-  FiChevronDown,
-} from "react-icons/fi";
+import { FiMenu, FiChevronDown } from "react-icons/fi";
 
-import {GoDashboard} from 'react-icons/go'
+import { GoDashboard } from "react-icons/go";
 import { RiAdminLine } from "react-icons/ri";
-import {BsGearWideConnected} from 'react-icons/bs'
-import {IoMdNotifications} from 'react-icons/io'
+import { BsGearWideConnected } from "react-icons/bs";
+import { IoMdNotifications } from "react-icons/io";
 import { IconType } from "react-icons";
-import {BiAddToQueue} from 'react-icons/bi'
+import { BiAddToQueue } from "react-icons/bi";
 import { ReactText } from "react";
 import { useRouter } from "next/router";
 import { url } from "inspector";
@@ -38,13 +35,12 @@ import { url } from "inspector";
 interface LinkItemProps {
   name: string;
   icon: IconType;
-  route: string
+  route: string;
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: "Dashboard", icon: GoDashboard, route: "/admin" },
-  { name: "News Companies", icon: BiAddToQueue, "route":"/company"  },
-  { name: "Configuration", icon: BsGearWideConnected, "route": "/configuration" },
-  { name: "Notices", icon: IoMdNotifications, route: "/notices" },
+  { name: "News Companies", icon: BiAddToQueue, route: "/company" },
+  { name: "Configuration", icon: BsGearWideConnected, route: "/configuration" },
 ];
 
 export default function SidebarWithHeader({
@@ -91,19 +87,14 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       transition="3s ease"
       bg="#4C230A"
       borderRight="1px"
-    //   borderRightColor={useColorModeValue("gray.200", "gray.700")}
+      //   borderRightColor={useColorModeValue("gray.200", "gray.700")}
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text
-          fontSize="2xl"
-          
-          fontWeight="bold"
-          color="white"
-        >
+        <Text fontSize="2xl" fontWeight="bold" color="white">
           <div className="flex justify-center items-center gap-4">
             <RiAdminLine />
             Admin
@@ -116,7 +107,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} className="my-2" icon={link.icon} route={link.route}>
+        <NavItem
+          key={link.name}
+          className="my-2"
+          icon={link.icon}
+          route={link.route}
+        >
           {link.name}
         </NavItem>
       ))}
@@ -130,14 +126,14 @@ interface NavItemProps extends FlexProps {
   children: ReactText;
 }
 const NavItem = ({ icon, route, children, ...rest }: NavItemProps) => {
-    const router = useRouter()
+  const router = useRouter();
   return (
     <Link href={route} style={{ textDecoration: "none" }}>
       <Flex
         align="center"
         p="4"
         mx="4"
-        bg={`${router.asPath == route ? "#A53F2B": "#4C230A"}`}
+        bg={`${router.asPath == route ? "#A53F2B" : "#4C230A"}`}
         color="white"
         borderRadius="lg"
         role="group"
@@ -230,10 +226,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 </Box>
               </HStack>
             </MenuButton>
-            <MenuList
-              bg="#F0FFCE"
-              borderColor="gray.200"
-            >
+            <MenuList bg="#F0FFCE" borderColor="gray.200">
               <MenuItem bg="#F0FFCE">Sign out</MenuItem>
             </MenuList>
           </Menu>

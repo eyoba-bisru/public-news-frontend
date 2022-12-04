@@ -24,7 +24,7 @@ const company = () => {
       <Head>
         <title>Company</title>
       </Head>
-      <div className="flex flex-col gap-10 h-screen">
+      <div className="flex flex-col gap-10 px-6 h-screen">
         <div className="flex justify-between items-center">
           <p className=" text-primary text-[23.165px] font-bold">
             News Companies
