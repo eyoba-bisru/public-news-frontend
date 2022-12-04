@@ -94,7 +94,7 @@ const dashboard = () => {
     <SidebarWithHeader>
       <div>
         <div className="container px-6 mx-auto grid">
-          <h2 className="my-6 text-2xl font-semibold text-gray-700">
+          <h2 className="my-4 text-2xl font-semibold text-primary">
             Dashboard
           </h2>
 
@@ -177,9 +177,8 @@ const dashboard = () => {
         </div>
       </div>
       <div className="flex gap-4 items-center justify-center w-[100%] h-80 border">
-        
-      <Bar options={options} data={data2} />
-      <Pie data={data} />
+        <Bar options={options} data={data2} />
+        <Pie data={data} />
       </div>
     </SidebarWithHeader>
   );
