@@ -16,7 +16,7 @@ const SignUp = () => {
         <title>Sign up</title>
       </Head>
       <UserNavbar route={route} />
-      <div className="w-[314.705px] mt-[6rem]">
+      <div className="w-[314.705px] py-[48.6px] mt-[6rem]">
         <div className="w-full bg-white rounded-md h-[424.88px]">
           <div className="px-6 py-1 flex flex-col gap-6">
             <p className="font-light text-2xl text-center mt-6">

@@ -39,8 +39,12 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: "Dashboard", icon: GoDashboard, route: "/admin" },
-  { name: "News Companies", icon: BiAddToQueue, route: "/company" },
-  { name: "Configuration", icon: BsGearWideConnected, route: "/configuration" },
+  { name: "News Companies", icon: BiAddToQueue, route: "/admin/company" },
+  {
+    name: "Configuration",
+    icon: BsGearWideConnected,
+    route: "/admin/configuration",
+  },
 ];
 
 export default function SidebarWithHeader({
