@@ -2,16 +2,17 @@ import { Avatar } from "@chakra-ui/react";
 import Head from "next/head";
 import Image from "next/image";
 import React from "react";
+import { BiCopyright } from "react-icons/bi";
 import Editornav from "../../components/Editornav";
 const show = () => {
   return (
-    <div>
+    <div className="relative min-h-screen">
       <Head>
         <title>Show Post</title>
       </Head>
       <Editornav />
-      <div className="flex justify-center items-center">
-        <div className="flex justify-center h-screen">
+      <div className="flex justify-center items-center mt-10">
+        <div className="flex justify-center min-h-screen">
           <div className="flex flex-col gap-2 items-center h-full">
             <div className="flex gap-2 justify-center md:ml-[20%] md:mr-[20%] ml-[5%] mr-[5%] h-full">
               <Avatar
@@ -38,7 +39,9 @@ const show = () => {
                   />
                 </div>
                 <div className="flex flex-col gap-3">
-                  <p>Ethiopian Flag Day</p>
+                  <p className="text-primary text-[18.08px] font-bold">
+                    Ethiopian Flag Day
+                  </p>
                   <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Quas facilis eius sapiente beatae exercitationem. Iusto
@@ -62,6 +65,12 @@ const show = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="absolute bottom-2 right-[80px]">
+        <p className="text-text text-[11.865px] font-medium">
+          <BiCopyright className="inline" fontSize="14px" />{" "}
+          <span>2022 END Media Network</span>
+        </p>
       </div>
     </div>
   );
