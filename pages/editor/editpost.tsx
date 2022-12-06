@@ -1,6 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import Head from "next/head";
 import React from "react";
+import { BiCopyright } from "react-icons/bi";
 import Editornav from "../../components/Editornav";
 
 const addpost = () => {
@@ -110,7 +111,10 @@ const addpost = () => {
           </Button>
         </div>
         <div className="absolute bottom-2 right-[80px]">
-          <p className="text-text">@ 2022 END Media Network</p>
+          <p className="text-text text-[11.865px] font-medium">
+            <BiCopyright className="inline" fontSize="14px" />{" "}
+            <span>2022 END Media Network</span>
+          </p>
         </div>
       </div>
     </div>
