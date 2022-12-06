@@ -13,7 +13,7 @@ const Editornav = () => {
             <Avatar textColor="#280004" bg="#D9D9D9" name="Eyob" size="sm" />
           </MenuButton>
           <MenuList>
-            <MenuItem>Signout</MenuItem>
+            <MenuItem>Logout</MenuItem>
           </MenuList>
         </Menu>
       </div>
