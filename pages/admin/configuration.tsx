@@ -1,5 +1,5 @@
 import React from "react";
-import SidebarWithHeader from "../components/Sidenav";
+import SidebarWithHeader from "../../components/Sidenav";
 import { FiEdit } from "react-icons/fi";
 import {
   Modal,
@@ -28,8 +28,8 @@ const configuration = () => {
           Configurations
         </p>
 
-        <div className="w-full text-center flex justify-center">
-          <div className="flex justify-center items-center gap-2 xs:w-full md:w-[90%] lg:w-[80%]">
+        <div className="w-full flex justify-center items-center">
+          <div className="flex justify-center items-center gap-2 w-full md:w-[90%] lg:w-[80%]">
             <Select width="56">
               <option value="option1">Content</option>
               <option value="option2">Language</option>
@@ -50,7 +50,7 @@ const configuration = () => {
         </div>
 
         <div className="w-full flex flex-col gap-2 justify-center items-center">
-          <div className="xs:w-full md:w-[90%] lg:w-[80%] bg-white p-4 flex justify-between items-center rounded-md">
+          <div className="w-full md:w-[90%] lg:w-[80%] bg-white p-4 flex justify-between items-center rounded-md">
             <p>Title</p>
             <div className="flex justify-center items-center gap-2">
               <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 border border-green-500 rounded">
@@ -61,7 +61,7 @@ const configuration = () => {
               </button>
             </div>
           </div>
-          <div className="xs:w-full md:w-[90%] lg:w-[80%] bg-white p-4 flex justify-between items-center rounded-md">
+          <div className="w-full md:w-[90%] lg:w-[80%] bg-white p-4 flex justify-between items-center rounded-md">
             <p>Title</p>
             <div className="flex justify-center items-center gap-2">
               <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 border border-green-500 rounded">

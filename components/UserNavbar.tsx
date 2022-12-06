@@ -47,9 +47,11 @@ const UserNavbar = ({ route }: Props) => {
   }, []);
 
   return (
-    <div className="w-screen h-[48.6px] bg-userNav flex justify-center items-center">
+    <div className="fixed w-screen h-[48.6px] bg-userNav flex justify-center items-center">
       <div className="w-screen max-w-[1200px] h-full bg-userNav flex justify-between items-center px-6 md:px-6">
-        <div className="font-extrabold text-[26px] text-text">END.</div>
+        <div className="font-extrabold text-[26px] text-text">
+          <Link href="/">END.</Link>
+        </div>
         <div
           className={`fixed transition-all right-0 top-[48.6px] bg-userNav z-10 w-[100vw] justify-center items-center ${
             open ? "translate-x-0" : "translate-x-[100%]"
@@ -74,7 +76,7 @@ const UserNavbar = ({ route }: Props) => {
                       <Menu>
                         <MenuButton>
                           <div className="hover:shadow text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[50vw] font-medium md:w-auto">
-                            Menu
+                            More
                             <AiFillCaretDown />
                           </div>
                         </MenuButton>

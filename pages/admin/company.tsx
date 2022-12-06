@@ -1,5 +1,5 @@
 import React from "react";
-import SidebarWithHeader from "../components/Sidenav";
+import SidebarWithHeader from "../../components/Sidenav";
 import { FiEdit } from "react-icons/fi";
 import {
   Modal,

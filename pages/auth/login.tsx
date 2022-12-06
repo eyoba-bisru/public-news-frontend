@@ -16,7 +16,7 @@ const Login = () => {
         <title>Login</title>
       </Head>
       <UserNavbar route={route} />
-      <div className="h-[336.74px] w-[314.705px] mt-[6rem]">
+      <div className="h-[336.74px] py-[48.6px] w-[314.705px] mt-[6rem]">
         <div className="w-full bg-white rounded-md h-[307.925px]">
           <div className="px-6 py-1 flex flex-col gap-6">
             <p className="font-light text-2xl text-center mt-6">
