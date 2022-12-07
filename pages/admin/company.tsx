@@ -1,4 +1,3 @@
-import React from "react";
 import SidebarWithHeader from "../../components/Sidenav";
 import { FiEdit } from "react-icons/fi";
 import {
@@ -38,12 +37,7 @@ const company = () => {
               <AiFillPlusCircle className="text-white text-2xl" />
             </div>
             <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalContent
-                h="370px"
-                maxW="52rem"
-                marginBlock="36"
-                // marginLeft="24"
-              >
+              <ModalContent h="370px" maxW="52rem" marginBlock="36">
                 <Box>
                   <ModalHeader className="text-primary text-[19.21px] text-center">
                     Add News Company

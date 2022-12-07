@@ -1,7 +1,6 @@
 import { Button, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import Head from "next/head";
 import UserNavbar from "../../components/UserNavbar";
-import { MdEmail } from "react-icons/md";
 import PasswordInput from "../../components/PasswordInputSignup";
 import Link from "next/link";
 import { useRouter } from "next/router";

@@ -1,19 +1,6 @@
-import React from "react";
 import SidebarWithHeader from "../../components/Sidenav";
 import { FiEdit } from "react-icons/fi";
-import {
-  Modal,
-  Button,
-  Box,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  InputGroup,
-  Input,
-  Select,
-} from "@chakra-ui/react";
+import { Input, Select } from "@chakra-ui/react";
 import { MdDeleteForever } from "react-icons/md";
 import { AiFillPlusCircle } from "react-icons/ai";
 import Head from "next/head";

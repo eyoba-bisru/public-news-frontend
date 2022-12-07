@@ -4,7 +4,6 @@ import { GrClose } from "react-icons/gr";
 import { BsSearch } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 const data = [

@@ -1,14 +1,6 @@
-import {
-  Button,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  InputLeftElement,
-  InputRightElement,
-} from "@chakra-ui/react";
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import React from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { BsKeyFill } from "react-icons/bs";
 
 type Props = {
   placeholder: string;
