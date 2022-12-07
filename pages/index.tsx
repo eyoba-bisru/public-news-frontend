@@ -1,17 +1,20 @@
 import { Button } from "@chakra-ui/react";
-import { url } from "inspector";
 import React from "react";
 import Card from "../components/Card";
 import ImageCard from "../components/ImageCard";
 import UserNavbar from "../components/UserNavbar";
 import { AiFillRightCircle } from "react-icons/ai";
 import Footer from "../components/Footer";
+import Head from "next/head";
 
 const Home = () => {
   return (
     <>
+      <Head>
+        <title>Home</title>
+      </Head>
       <UserNavbar />
-      <div className="w-screen py-[48.6px] flex justify-center items-center">
+      <div className="w-full py-[48.6px] flex justify-center items-center">
         <div className="w-full max-w-[1200px] px-6 md:px-6 mt-4">
           <h1 className="text-text text-2xl font-bold my-4">Latest news</h1>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -42,7 +45,7 @@ const Home = () => {
               background="#4C230A"
               color="white"
               _hover={{ background: "#A53F2B" }}
-              _active={{ backgound: "#A53F2B" }}
+              _active={{ background: "#A53F2B" }}
               fontSize="lg"
               height="12"
             >
