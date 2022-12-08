@@ -1,11 +1,10 @@
-import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
-import { BiMenuAltRight } from 'react-icons/bi'
-import { GrClose } from 'react-icons/gr'
-import { BsSearch } from 'react-icons/bs'
-import { useEffect, useState } from 'react'
-import { AiFillCaretDown } from 'react-icons/ai'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { BiMenuAltRight } from "react-icons/bi";
+import { GrClose } from "react-icons/gr";
+import { BsSearch } from "react-icons/bs";
+import { useEffect, useState } from "react";
+import { AiFillCaretDown } from "react-icons/ai";
+import Link from "next/link";
 
 const data = [
   'Home',

@@ -1,8 +1,6 @@
 import {
-  Button,
   Input,
   InputGroup,
-  InputLeftAddon,
   InputLeftElement,
   InputRightElement,
 } from "@chakra-ui/react";

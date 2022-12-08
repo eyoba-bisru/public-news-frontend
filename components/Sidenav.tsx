@@ -25,12 +25,10 @@ import { FiMenu, FiChevronDown } from "react-icons/fi";
 import { GoDashboard } from "react-icons/go";
 import { RiAdminLine } from "react-icons/ri";
 import { BsGearWideConnected } from "react-icons/bs";
-import { IoMdNotifications } from "react-icons/io";
 import { IconType } from "react-icons";
 import { BiAddToQueue } from "react-icons/bi";
 import { ReactText } from "react";
 import { useRouter } from "next/router";
-import { url } from "inspector";
 
 interface LinkItemProps {
   name: string;
