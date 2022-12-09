@@ -1,9 +1,8 @@
 import { Button, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import Head from 'next/head'
 import UserNavbar from '../../components/UserNavbar'
-import PasswordInput from '../../components/PasswordInputSignup'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { MdEmail } from 'react-icons/md'
+
 const forgot = () => {
   return (
     <div className='w-screen flex flex-col justify-between items-center'>
@@ -18,12 +17,18 @@ const forgot = () => {
               Forgot Password
             </p>
             <form className='flex flex-col justify-center items-center gap-4'>
-              <Input
-                type='email'
-                borderColor='#4C230A'
-                placeholder='Email'
-                _focus={{ border: 'none' }}
-              />
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents='none'
+                  children={<MdEmail color='#4C230A' />}
+                />
+                <Input
+                  type='email'
+                  borderColor='#4C230A'
+                  placeholder='Email'
+                  _focus={{ border: 'none' }}
+                />
+              </InputGroup>
               <Button
                 bg='#4C230A'
                 _hover={{ bg: '#A53F2B' }}
