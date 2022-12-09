@@ -1,4 +1,3 @@
-import React from "react";
 import { Menu, MenuButton, MenuList, MenuItem, Avatar } from "@chakra-ui/react";
 
 const Editornav = () => {
