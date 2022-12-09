@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const Footer = () => {
   return (
@@ -19,9 +19,9 @@ const Footer = () => {
               <p>Ethiopia</p>
             </div>
           </div>
-          <div className="flex justify-center items-center gap-4 md:block">
-            <h2 className="font-bold text-[1.3rem] mb-2">Languages</h2>
-            <div className="grid grid-cols-2 gap-x-6">
+          <div className='flex justify-center items-center gap-4 md:block'>
+            <h2 className='font-bold text-[1.3rem] mb-2'>Languages</h2>
+            <div className='grid grid-cols-2 gap-x-6'>
               <p>Amharic</p>
               <p>Amharic</p>
               <p>Amharic</p>
@@ -31,12 +31,12 @@ const Footer = () => {
             </div>
           </div>
           <div>
-            <img src="/Group 65.svg" alt="copywrite" className="h-40" />
+            <img src='/Group 65.svg' alt='copywrite' className='h-40' />
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
