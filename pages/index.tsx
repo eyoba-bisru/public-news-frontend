@@ -6,7 +6,7 @@ import UserNavbar from "../components/UserNavbar";
 import { AiFillRightCircle } from "react-icons/ai";
 import Footer from "../components/Footer";
 import Head from "next/head";
-
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -26,9 +26,9 @@ const Home = () => {
             <ImageCard />
             <ImageCard />
           </div>
-          <p className='text-text text-xl font-bold my-4'>Other news</p>
-          <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
-            <Link href='/detail'>
+          <p className="text-text text-xl font-bold my-4">Other news</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <Link href="/detail">
               <Card />
             </Link>
             <Card />
@@ -42,7 +42,7 @@ const Home = () => {
             <Card />
           </div>
 
-          <div className='w-full grid place-content-center my-8'>
+          <div className="w-full grid place-content-center my-8">
             <Button
               rightIcon={<AiFillRightCircle />}
               background="#4C230A"
@@ -59,7 +59,7 @@ const Home = () => {
       </div>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
