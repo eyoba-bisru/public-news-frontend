@@ -61,6 +61,18 @@ const options = {
     },
   },
 };
+const options2 = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top" as const,
+    },
+    title: {
+      display: true,
+      text: "Analytics",
+    },
+  },
+};
 
 const labels = [
   "Monday",
@@ -175,9 +187,11 @@ const dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="flex gap-4 items-center justify-center w-[100%] h-80 border">
-        <Bar options={options} data={data2} />
-        <Pie data={data} />
+      <div className="w-full flex justify-center items-center">
+        <div className="flex flex-col lg:w-[80%] gap-10 items-center justify-center w-[100%] h-auto">
+          <Bar options={options} data={data2} />
+          <Pie data={data} options={options2} />
+        </div>
       </div>
     </SidebarWithHeader>
   );
