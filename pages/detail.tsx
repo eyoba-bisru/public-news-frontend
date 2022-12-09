@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar } from '@chakra-ui/react'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -15,15 +15,15 @@ const detail = () => {
         <title>Detail</title>
       </Head>
       <UserNavbar />
-      <div className='flex flex-col gap-8 w-full'>
-        <div className='flex lg:flex-row flex-col md:justify-start justify-center gap-4 lg:gap-10 h-full'>
-          <div className='flex lg:justify-start md:justify-center md:items-center min-h-screen lg:ml-[6%] mt-[55px] lg:w-[65%]'>
-            <div className='flex flex-col gap-2 justify-start items-center md:w-[80%] lg:w-full h-full'>
+      <div className='flex flex-col gap-8 w-full min-h-screen'>
+        <div className='min-h-screen flex lg:flex-row flex-col md:justify-start justify-center items-center gap-4 lg:gap-10 h-full'>
+          <div className='flex lg:justify-start md:justify-center sm:items-center justify-center md:items-center min-h-screen sm:ml-[7.5%] mt-[55px] lg:w-[65%] sm:[w-70%]'>
+            <div className='flex flex-col gap-2 justify-center md:justify-start items-center md:w-[80%] lg:w-full h-full w-[95%]'>
               <div className='flex gap-2 justify-start h-full w-full'>
                 <Avatar
                   name='EBC'
                   src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/EBC_logo.svg/1200px-EBC_logo.svg.png'
-                  className='object-contain object-center'
+                  className='object-contain object-center -z-10'
                 />
 
                 <div className='flex flex-col gap-1'>
@@ -51,7 +51,7 @@ const detail = () => {
                       className='md:w-full sm:h-[300px] md:h-[350px] lg:h-[370px] w-full h-[200px]'
                     />
                   </div>
-                  <div className='flex flex-col gap-3'>
+                  <div className='flex flex-col gap-3 mt-4'>
                     <p className='text-primary text-[18.08px] font-bold'>
                       Ethiopian Flag Day
                     </p>
@@ -79,18 +79,18 @@ const detail = () => {
               </div>
             </div>
           </div>
-          <div className='h-[770px] lg:mt-[120px] bg-white lg:w-[35%] ml-[20%] mr-[20%] lg:ml-0 lg:mr-10 flex flex-col items-center gap-7'>
-            <p className='text-[17.515px] text-text'>Recommended</p>
+          <div className='sm:h-[750px] h-[1400px] lg:mt-[120px] bg-white lg:w-[35%] w-[70%] ml-[19%] sm:w-[70%] sm:ml-[20%] mr-[20%] lg:ml-0 lg:mr-[6.5%] flex flex-col items-center gap-5'>
+            <p className='text-[17.515px] text-text mt-2'>Recommended</p>
             <Link
               href='/anotherdetail'
-              className='flex justify-center h-[150px] w-full'
+              className='flex flex-col-reverse sm:flex-row justify-cente items-center sm:h-[120px] h-[250px] sm:w-[80%]  w-full lg:w-full'
             >
-              <div className='w-[57%] h-full flex items-center'>
-                <p className='ml-6 text-[16px] font-bold'>
+              <div className='sm:w-[57%]  w-full flex justify-center items-center sm:h-full h-[35%]'>
+                <p className='flex justify-center items-center ml-4 sm:ml-4 md:ml-none text-[16px] font-bold'>
                   Menilik II baptised as sahle mariyam
                 </p>
               </div>
-              <div className='w-[43%] h-full flex items-center justify-center'>
+              <div className='sm:w-[43%] sm:h-full h-[65%] w-[80%] flex items-center justify-center'>
                 <img
                   src='https://th.bing.com/th/id/OIP.duIVaw6uAfEFU36SNdOJEAHaGL?w=247&h=206&c=7&r=0&o=5&pid=1.7'
                   className='w-[90%] h-[90%] rounded'
@@ -99,14 +99,14 @@ const detail = () => {
             </Link>
             <Link
               href='/anotherdetail'
-              className='flex justify-center h-[150px] w-full'
+              className='flex flex-col-reverse sm:flex-row justify-cente items-center sm:h-[120px] h-[250px] sm:w-[80%]  w-full lg:w-full'
             >
-              <div className='w-[57%] h-full flex items-center'>
-                <p className='ml-6 text-[16px] font-bold'>
+              <div className='sm:w-[57%]  w-full flex justify-center items-center sm:h-full h-[35%]'>
+                <p className='flex justify-center items-center ml-4 sm:ml-4 md:ml-none text-[16px] font-bold'>
                   Menilik II baptised as sahle mariyam
                 </p>
               </div>
-              <div className='w-[43%] h-full flex items-center justify-center'>
+              <div className='sm:w-[43%] sm:h-full h-[65%] w-[80%] flex items-center justify-center'>
                 <img
                   src='https://th.bing.com/th/id/OIP.duIVaw6uAfEFU36SNdOJEAHaGL?w=247&h=206&c=7&r=0&o=5&pid=1.7'
                   className='w-[90%] h-[90%] rounded'
@@ -115,14 +115,14 @@ const detail = () => {
             </Link>
             <Link
               href='/anotherdetail'
-              className='flex justify-center h-[150px] w-full'
+              className='flex flex-col-reverse sm:flex-row justify-cente items-center sm:h-[120px] h-[250px] sm:w-[80%]  w-full lg:w-full'
             >
-              <div className='w-[57%] h-full flex items-center'>
-                <p className='ml-6 text-[16px] font-bold'>
+              <div className='sm:w-[57%]  w-full flex justify-center items-center sm:h-full h-[35%]'>
+                <p className='flex justify-center items-center ml-4 sm:ml-4 md:ml-none text-[16px] font-bold'>
                   Menilik II baptised as sahle mariyam
                 </p>
               </div>
-              <div className='w-[43%] h-full flex items-center justify-center'>
+              <div className='sm:w-[43%] sm:h-full h-[65%] w-[80%] flex items-center justify-center'>
                 <img
                   src='https://th.bing.com/th/id/OIP.duIVaw6uAfEFU36SNdOJEAHaGL?w=247&h=206&c=7&r=0&o=5&pid=1.7'
                   className='w-[90%] h-[90%] rounded'
@@ -131,14 +131,30 @@ const detail = () => {
             </Link>
             <Link
               href='/anotherdetail'
-              className='flex justify-center h-[150px] w-full'
+              className='flex flex-col-reverse sm:flex-row justify-cente items-center sm:h-[120px] h-[250px] sm:w-[80%]  w-full lg:w-full'
             >
-              <div className='w-[57%] h-full flex items-center'>
-                <p className='ml-6 text-[16px] font-bold'>
+              <div className='sm:w-[57%]  w-full flex justify-center items-center sm:h-full h-[35%]'>
+                <p className='flex justify-center items-center ml-4 sm:ml-4 md:ml-none text-[16px] font-bold'>
                   Menilik II baptised as sahle mariyam
                 </p>
               </div>
-              <div className='w-[43%] h-full flex items-center justify-center'>
+              <div className='sm:w-[43%] sm:h-full h-[65%] w-[80%] flex items-center justify-center'>
+                <img
+                  src='https://th.bing.com/th/id/OIP.duIVaw6uAfEFU36SNdOJEAHaGL?w=247&h=206&c=7&r=0&o=5&pid=1.7'
+                  className='w-[90%] h-[90%] rounded'
+                />
+              </div>
+            </Link>
+            <Link
+              href='/anotherdetail'
+              className='flex flex-col-reverse sm:flex-row justify-cente items-center sm:h-[120px] h-[250px] sm:w-[80%]  w-full lg:w-full'
+            >
+              <div className='sm:w-[57%]  w-full flex justify-center items-center sm:h-full h-[35%]'>
+                <p className='flex justify-center items-center ml-4 sm:ml-4 md:ml-none text-[16px] font-bold'>
+                  Menilik II baptised as sahle mariyam
+                </p>
+              </div>
+              <div className='sm:w-[43%] sm:h-full h-[65%] w-[80%] flex items-center justify-center'>
                 <img
                   src='https://th.bing.com/th/id/OIP.duIVaw6uAfEFU36SNdOJEAHaGL?w=247&h=206&c=7&r=0&o=5&pid=1.7'
                   className='w-[90%] h-[90%] rounded'
