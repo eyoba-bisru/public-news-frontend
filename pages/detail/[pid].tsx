@@ -54,53 +54,54 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
       <UserNavbar />
 
       <div className='flex flex-col gap-8 w-full min-h-screen'>
-        <div className='flex lg:flex-row flex-col md:justify-start justify-center items-start gap-4 lg:gap-10 h-full'>
-          <div className='flex lg:justify-start md:justify-center sm:items-center justify-center md:items-center min-h-screen sm:ml-[7.5%] mt-[55px] lg:w-[65%] sm:[w-70%]'>
-            <div className='flex flex-col gap-2 justify-center md:justify-start items-center md:w-[80%] lg:w-full h-full w-[95%]'>
-              <div className='flex gap-2 justify-start h-full w-full'>
+        <div className='flex lg:flex-row flex-col md:justify-start justify-center items-center lg:items-start gap-4 lg:gap-10 h-full mt-[48.6px]'>
+          <div className='flex lg:justify-start md:justify-center sm:items-center justify-center md:items-center lg:ml-[6.5%] mt-[30px] lg:w-[65%] w-full'>
+            <div className='flex flex-col gap-2 justify-center md:justify-start items-center md:w-full lg:w-full w-full ml-[20px] mr-[20px] mt-0 mb-0 sm:ml-[20px] sm:mr-[20px]sm:mt-[0px]sm:mb-[0px] md:ml-[30px] md:mr-[30px] md:mt-[0px] md:mb-[0px] lg:m-[0px]'>
+              <div className='flex gap-2 justify-center h-full w-full'>
                 <div className='flex flex-col gap-1'>
-                  <div className='flex justify-between items-center'>
-                    <div className='flex gap-2 items-center'>
-                      <Avatar
-                        name={post?.user.name}
-                        src={post?.user.logo}
-                        className='object-contain object-center -z-10'
-                      />
-                      <div>
-                        <p>{post?.user.name}</p>
-                        <div className='flex gap-4'>
-                          <p>
-                            {convert(
-                              new Date(post?.createdAt!).getHours(),
-                              new Date(post?.createdAt!).getMinutes()
-                            )}
-                          </p>
-                          <div className='flex gap-1'>
-                            <p>{new Date(post?.createdAt!).getDate()}</p>
+                  <div>
+                    <div className='flex justify-between items-center'>
+                      <div className='flex gap-2 items-center'>
+                        <Avatar
+                          name={post?.user.name}
+                          src={post?.user.logo}
+                          className='object-contain object-center -z-10'
+                        />
+                        <div>
+                          <p>{post?.user.name}</p>
+                          <div className='flex gap-4'>
                             <p>
-                              {
-                                monthNames[
-                                  new Date(post?.createdAt!).getMonth()
-                                ]
-                              }
+                              {convert(
+                                new Date(post?.createdAt!).getHours(),
+                                new Date(post?.createdAt!).getMinutes()
+                              )}
                             </p>
-                            <p>{new Date(post?.createdAt!).getFullYear()}</p>
+                            <div className='flex gap-1'>
+                              <p>{new Date(post?.createdAt!).getDate()}</p>
+                              <p>
+                                {
+                                  monthNames[
+                                    new Date(post?.createdAt!).getMonth()
+                                  ]
+                                }
+                              </p>
+                              <p>{new Date(post?.createdAt!).getFullYear()}</p>
+                            </div>
                           </div>
                         </div>
                       </div>
+
+                      <Link href='/bookmark'>
+                        <BsFillBookmarkPlusFill className='text-primary w-5 h-14' />
+                      </Link>
                     </div>
-
-                    <Link href='/bookmark'>
-                      <BsFillBookmarkPlusFill className='text-primary w-5 h-14' />
-                    </Link>
-                  </div>
-
-                  <div>
-                    <img
-                      src={post?.imageUrl}
-                      alt='image'
-                      className='md:w-full sm:h-[300px] md:h-[350px] lg:h-[370px] w-full h-[200px]'
-                    />
+                    <div>
+                      <img
+                        src={post?.imageUrl}
+                        alt='image'
+                        className='md:w-full sm:h-[370px] lg:h-[370px] w-full h-[200px]'
+                      />
+                    </div>
                   </div>
                   <div className='flex flex-col gap-3 mt-4'>
                     <p className='text-primary text-[18.08px] font-bold'>
@@ -112,7 +113,7 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
               </div>
             </div>
           </div>
-          <div className='sm:h-[750px] h-[1400px] lg:mt-[120px] bg-white lg:w-[35%] w-[70%] ml-[19%] sm:w-[70%] sm:ml-[20%] mr-[20%] lg:ml-0 lg:mr-[6.5%] flex flex-col items-center gap-5'>
+          <div className='sm:h-[750px] h-[1400px] lg:mt-[86px] bg-white lg:w-[35%] w-[70%] flex flex-col items-center gap-5 lg:mr-[88px] rounded'>
             <p className='text-[17.515px] text-text mt-2'>Recommended</p>
             {recommend.map((d) => (
               <Link
