@@ -24,7 +24,7 @@ const ImageCard = ({ company, description, image, location, title }: Props) => {
           <h3 className="text-base font-bold leading-5 uppercase">{title}</h3>
           <div className="inline-flex items-center">
             <span className="capitalize font-base text-xs my-1 mr-1">
-              {description.length > 200
+              {description.length > 100
                 ? `${description.slice(0, 100)}...`
                 : description}
             </span>

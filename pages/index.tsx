@@ -35,9 +35,8 @@ const Home = ({ data }: { data: Data }) => {
           <h1 className="text-text text-2xl font-bold my-4">Latest news</h1>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {data.slice(0, 6).map((d) => (
-              <Link href={`/detail/${d.id}`}>
+              <Link key={d.id} href={`/detail/${d.id}`}>
                 <ImageCard
-                  key={d.id}
                   company={d.user.shortName}
                   title={d.title}
                   description={d.description}
@@ -50,9 +49,8 @@ const Home = ({ data }: { data: Data }) => {
           <p className="text-text text-xl font-bold my-4">Other news</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {data.slice(6, data.length).map((d) => (
-              <Link href={`/detail/${d.id}`}>
+              <Link key={d.id} href={`/detail/${d.id}`}>
                 <Card
-                  key={d.id}
                   image={d.imageUrl}
                   company={d.user.shortName}
                   location={d.location.name}

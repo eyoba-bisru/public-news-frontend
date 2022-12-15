@@ -6,24 +6,7 @@ import { useEffect, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import Link from "next/link";
 import axiosInstance from "../lib/axiosInstance";
-
-const d = [
-  "Home",
-  "Sport",
-  "Health",
-  "Bussiness",
-  "Politics",
-  "Entertaiment",
-  "World",
-  "Weather",
-  "Travel",
-  "History",
-];
-
-const data2 = d.slice(0, 5);
-data2.push("More");
-
-const data3 = d.slice(5);
+import { useRouter } from "next/router";
 
 type Props = {
   route?: string;
@@ -32,21 +15,20 @@ type Props = {
 type Data = {
   id: string;
   name: string;
+  type: string;
 }[];
 
 const UserNavbar = ({ route }: Props) => {
   const [open, setOpen] = useState(false);
   const [screen, setScreen] = useState<number>(0);
+  const router = useRouter();
 
-  // const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<Data>([]);
 
   async function fetchData() {
     const { data } = await axiosInstance.get<Data>("/configuration/all");
-    // console.log(data);
     setData(data);
-    setData([{ id: "home", name: "Home" }, ...data]);
-    // setIsLoading(false);
+    setData([{ id: "home", name: "Home", type: "" }, ...data]);
   }
 
   useEffect(() => {
@@ -83,31 +65,42 @@ const UserNavbar = ({ route }: Props) => {
             }`}
           >
             {screen < 768
-              ? data?.map((menu) => {
+              ? data.length > 0 &&
+                data?.map((menu) => {
                   return (
                     <Link
                       href={`/${
-                        menu.name != "Home" ? menu.name.toLowerCase() : "/"
+                        menu.name != "Home"
+                          ? menu.type + "/" + menu.name.toLowerCase()
+                          : "/"
                       }`}
+                      key={menu.id}
                     >
                       <li
-                        key={menu.id}
-                        className="hover:shadow text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[25vw] font-medium md:w-auto"
+                        className={`text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[25vw] font-medium md:w-auto ${
+                          router.asPath ===
+                          "/" + menu.type + "/" + menu.name.toLowerCase()
+                            ? "text-secondary"
+                            : menu.name == "Home" && router.asPath == "/"
+                            ? "text-secondary"
+                            : "text-text"
+                        }`}
                       >
                         {menu.name}
                       </li>
                     </Link>
                   );
                 })
-              : data
+              : data.length > 0 &&
+                data
                   .slice(0, 5)
-                  .concat({ id: "more", name: "More" })
+                  .concat({ id: "more", name: "More", type: "" })
                   .map((menu) => {
                     if (menu.name == "More") {
                       return (
                         <Menu key={menu.id}>
                           <MenuButton>
-                            <div className="hover:shadow text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[50vw] font-medium md:w-auto">
+                            <div className="text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[50vw] font-medium md:w-auto">
                               More
                               <AiFillCaretDown />
                             </div>
@@ -118,20 +111,40 @@ const UserNavbar = ({ route }: Props) => {
                             gridTemplateColumns="2"
                           >
                             <div className="bg-userNav">
-                              {data.slice(5).map((menu) => {
-                                return (
-                                  <Link href={`/${menu.name.toLowerCase()}`}>
-                                    <MenuItem
-                                      bg="rgb(188 185 147)"
+                              {data.length > 0 &&
+                                data.slice(5).map((menu) => {
+                                  return (
+                                    <Link
+                                      href={`/${
+                                        menu.name != "Home"
+                                          ? menu.type +
+                                            "/" +
+                                            menu.name.toLowerCase()
+                                          : "/"
+                                      }`}
                                       key={menu.id}
                                     >
-                                      <div className="w-full text-text text-[14px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center font-medium">
-                                        {menu.name}
-                                      </div>
-                                    </MenuItem>
-                                  </Link>
-                                );
-                              })}
+                                      <MenuItem bg="rgb(188 185 147)">
+                                        <div
+                                          className={`text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[50vw] font-medium md:w-auto ${
+                                            router.asPath ===
+                                            "/" +
+                                              menu.type +
+                                              "/" +
+                                              menu.name.toLowerCase()
+                                              ? "text-secondary"
+                                              : menu.name == "Home" &&
+                                                router.asPath == "/"
+                                              ? "text-secondary"
+                                              : "text-text"
+                                          }`}
+                                        >
+                                          {menu.name}
+                                        </div>
+                                      </MenuItem>
+                                    </Link>
+                                  );
+                                })}
                             </div>
                           </MenuList>
                         </Menu>
@@ -140,12 +153,21 @@ const UserNavbar = ({ route }: Props) => {
                     return (
                       <Link
                         href={`/${
-                          menu.name != "Home" ? menu.name.toLowerCase() : "/"
+                          menu.name != "Home"
+                            ? menu.type + "/" + menu.name.toLowerCase()
+                            : "/"
                         }`}
                       >
                         <li
                           key={menu.id}
-                          className="hover:shadow text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[50vw] font-medium md:w-auto"
+                          className={`text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[50vw] font-medium md:w-auto ${
+                            router.asPath ===
+                            "/" + menu.type + "/" + menu.name.toLowerCase()
+                              ? "text-secondary"
+                              : menu.name == "Home" && router.asPath == "/"
+                              ? "text-secondary"
+                              : "text-text"
+                          }`}
                         >
                           {menu.name}
                         </li>
