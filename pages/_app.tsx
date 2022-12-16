@@ -2,12 +2,36 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 
 import { ChakraProvider } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { AuthContextProvider } from "../context/AuthContext";
+import ProtectedRoute from "../components/ProtectedRoute";
+import { NextProgressbarSpinner } from "nextjs-progressbar-spinner";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  const noAuthRequired = ["/", "/auth/login", "/auth/signup"];
+
   return (
-    <ChakraProvider>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <AuthContextProvider>
+      <ChakraProvider>
+        <NextProgressbarSpinner
+          NextNProgressProps={{
+            color: "#A53F2B",
+            options: {
+              showSpinner: true,
+            },
+          }}
+        />
+        {noAuthRequired.includes(`${router.pathname}`) ? (
+          <Component {...pageProps} />
+        ) : (
+          <ProtectedRoute>
+            <Component {...pageProps} />
+          </ProtectedRoute>
+        )}
+      </ChakraProvider>
+    </AuthContextProvider>
   );
 }
 

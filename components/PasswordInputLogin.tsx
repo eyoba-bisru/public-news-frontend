@@ -8,7 +8,14 @@ import React from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsKeyFill } from "react-icons/bs";
 
-function PasswordInput() {
+type Props = {
+  name: string;
+  handleChange: React.ChangeEventHandler<HTMLInputElement>;
+  value: string;
+  handleBlur: React.FocusEventHandler<HTMLInputElement>;
+};
+
+function PasswordInput({ handleBlur, handleChange, name, value }: Props) {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
@@ -25,6 +32,10 @@ function PasswordInput() {
         placeholder="Password"
         borderColor="#4C230A"
         _focus={{ border: "none" }}
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        name={name}
       />
       <InputRightElement width="4.5rem" _hover={{ cursor: "pointer" }}>
         <AiFillEye

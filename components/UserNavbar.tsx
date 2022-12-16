@@ -1,4 +1,4 @@
-import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { Avatar, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { BiMenuAltRight } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
 import { BsSearch } from "react-icons/bs";
@@ -7,6 +7,8 @@ import { AiFillCaretDown } from "react-icons/ai";
 import Link from "next/link";
 import axiosInstance from "../lib/axiosInstance";
 import { useRouter } from "next/router";
+import React from "react";
+import { useAuth } from "../context/AuthContext";
 
 type Props = {
   route?: string;
@@ -24,6 +26,8 @@ const UserNavbar = ({ route }: Props) => {
   const router = useRouter();
 
   const [data, setData] = useState<Data>([]);
+  const user = useAuth().user;
+  const logout = useAuth().logout;
 
   async function fetchData() {
     const { data } = await axiosInstance.get<Data>("/configuration/all");
@@ -180,7 +184,22 @@ const UserNavbar = ({ route }: Props) => {
           <Link href="/search">
             <BsSearch className="h-6 w-6 cursor-pointer text-secondary" />
           </Link>
-          {route == "/auth/login" ? (
+          {user ? (
+            // <Avatar name={user.name} size={"sm"} />
+            <Menu>
+              <MenuButton>
+                <Avatar
+                  textColor="#280004"
+                  bg="#D9D9D9"
+                  name={user.name}
+                  size="sm"
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={logout}>Logout</MenuItem>
+              </MenuList>
+            </Menu>
+          ) : route == "/auth/login" ? (
             <Link href="/auth/signup">
               <div className="bg-primary hover:bg-secondary cursor-pointer font-medium text-white rounded-md px-2 py-1 text-sm">
                 Sign up
@@ -206,6 +225,7 @@ const UserNavbar = ({ route }: Props) => {
               </Link>
             </>
           )}
+          {}
         </div>
         <BiMenuAltRight
           onClick={() => {
@@ -228,4 +248,4 @@ const UserNavbar = ({ route }: Props) => {
   );
 };
 
-export default UserNavbar;
+export default React.memo(UserNavbar);

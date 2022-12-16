@@ -4,9 +4,19 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 type Props = {
   placeholder: string;
+  name: string;
+  handleChange: React.ChangeEventHandler<HTMLInputElement>;
+  value: string;
+  handleBlur: React.FocusEventHandler<HTMLInputElement>;
 };
 
-function PasswordInput({ placeholder }: Props) {
+function PasswordInput({
+  placeholder,
+  handleChange,
+  value,
+  name,
+  handleBlur,
+}: Props) {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
@@ -14,10 +24,14 @@ function PasswordInput({ placeholder }: Props) {
     <InputGroup size="md">
       <Input
         pr="4.5rem"
+        name={name}
         type={show ? "text" : "password"}
         placeholder={placeholder}
         borderColor="#4C230A"
         _focus={{ border: "none" }}
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
       />
       <InputRightElement width="4.5rem" _hover={{ cursor: "pointer" }}>
         <AiFillEye
@@ -33,4 +47,4 @@ function PasswordInput({ placeholder }: Props) {
   );
 }
 
-export default PasswordInput;
+export default React.memo(PasswordInput);
