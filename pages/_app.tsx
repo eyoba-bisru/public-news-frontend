@@ -10,7 +10,16 @@ import { NextProgressbarSpinner } from "nextjs-progressbar-spinner";
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
-  const noAuthRequired = ["/", "/auth/login", "/auth/signup"];
+  const noAuthRequired = [
+    "/",
+    "/content/[cname]",
+    "/language/[lname]",
+    "/location/[loname]",
+    "/auth/login",
+    "/auth/signup",
+    "/search",
+    "/detail/[pid]",
+  ];
 
   return (
     <AuthContextProvider>
@@ -23,7 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             },
           }}
         />
-        {noAuthRequired.includes(`${router.pathname}`) ? (
+        {noAuthRequired.includes(router.pathname) ? (
           <Component {...pageProps} />
         ) : (
           <ProtectedRoute>

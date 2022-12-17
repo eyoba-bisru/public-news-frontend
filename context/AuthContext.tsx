@@ -1,3 +1,5 @@
+import { useToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
 import instance from "../lib/axiosInstance";
 
@@ -12,12 +14,18 @@ export const AuthContextProvider = ({
 }) => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const toast = useToast();
+
   console.log(user);
 
   async function checkUser() {
     try {
       const { data } = await instance.get("/auth/session");
       setUser(data);
+      // if (data.role == "ADMIN") router.replace("/admin");
+      // else if (data.role == "EDITOR") router.replace("/editor");
+      // else if (data.role == "USER") router.replace("/");
     } catch (error) {
       console.log(error);
       setUser(null);
@@ -44,10 +52,28 @@ export const AuthContextProvider = ({
       });
       resetForm();
       setUser(data);
+      toast({
+        title: "Account created successfully",
+        variant: "left-accent",
+        isClosable: true,
+        status: "success",
+        position: "bottom-left",
+      });
+      if (data.role == "ADMIN") router.replace("/admin");
+      else if (data.role == "EDITOR") router.replace("/editor");
+      else if (data.role == "USER") router.replace("/");
       return data;
     } catch (error) {
       // @ts-ignore
       console.log(error.response.data);
+      toast({
+        // @ts-ignore
+        title: error.response.data,
+        variant: "left-accent",
+        isClosable: true,
+        status: "error",
+        position: "bottom-left",
+      });
     }
   };
 
@@ -59,10 +85,29 @@ export const AuthContextProvider = ({
       });
       resetForm();
       setUser(data);
+      toast({
+        title: "Logged in successfully",
+        variant: "left-accent",
+        isClosable: true,
+        status: "success",
+        position: "bottom-left",
+      });
+      if (data.role == "ADMIN") router.replace("/admin");
+      else if (data.role == "EDITOR") router.replace("/editor");
+      else if (data.role == "USER") router.replace("/");
       return data;
     } catch (error) {
       // @ts-ignore
       console.log(error.response.data);
+
+      toast({
+        // @ts-ignore
+        title: error.response.data,
+        variant: "left-accent",
+        isClosable: true,
+        status: "error",
+        position: "bottom-left",
+      });
     }
   };
 
@@ -71,8 +116,24 @@ export const AuthContextProvider = ({
     try {
       const { data: user } = await instance.delete("/auth/logout");
       console.log(user);
+      toast({
+        title: "Logged out successfully",
+        variant: "left-accent",
+        isClosable: true,
+        status: "success",
+        position: "bottom-left",
+      });
     } catch (error) {
       console.log(error);
+
+      toast({
+        // @ts-ignore
+        title: error.response.data,
+        variant: "left-accent",
+        isClosable: true,
+        status: "error",
+        position: "bottom-left",
+      });
     }
   };
 

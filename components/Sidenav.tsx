@@ -29,6 +29,7 @@ import { IconType } from "react-icons";
 import { BiAddToQueue } from "react-icons/bi";
 import { ReactText } from "react";
 import { useRouter } from "next/router";
+import { useAuth } from "../context/AuthContext";
 
 interface LinkItemProps {
   name: string;
@@ -166,6 +167,8 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const logout = useAuth().logout;
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -229,7 +232,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               </HStack>
             </MenuButton>
             <MenuList bg="#F0FFCE" borderColor="gray.200">
-              <MenuItem bg="#F0FFCE">Sign out</MenuItem>
+              <MenuItem bg="#F0FFCE" onClick={logout}>
+                Logout
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>
