@@ -14,12 +14,15 @@ const Editornav = () => {
       <div className="mr-[8%] flex items-center">
         <Menu>
           <MenuButton>
-            <Avatar
-              textColor="#280004"
-              bg="#D9D9D9"
-              src={user.logo}
-              size="sm"
-            />
+            <div className="flex gap-2 items-center justify-center border rounded-3xl p-1 border-primary">
+              <Avatar
+                textColor="#280004"
+                bg="#D9D9D9"
+                src={`http://localhost:4000/files/${user.logo}`}
+                size="sm"
+              />
+              <p>{user.name}</p>
+            </div>
           </MenuButton>
           <MenuList>
             <MenuItem onClick={logout}>Logout</MenuItem>
