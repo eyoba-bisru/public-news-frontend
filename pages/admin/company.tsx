@@ -17,6 +17,9 @@ import { BiBlock } from "react-icons/bi";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import instance from "../../lib/axiosInstance";
+import swal from "sweetalert";
+import { useToast } from "@chakra-ui/react";
+import { CgUnblock } from "react-icons/cg";
 
 type Companies = {
   name: string;
@@ -26,6 +29,7 @@ type Companies = {
   shortName: string;
   logo: string;
   id: string;
+  suspended: boolean;
 }[];
 type User = {
   name: string;
@@ -35,6 +39,7 @@ type User = {
   shortName: string;
   logo: string;
   id: string;
+  suspended: boolean;
 };
 
 const company = () => {
@@ -54,16 +59,59 @@ const company = () => {
     password: "",
     phone: "",
     shortName: "",
+    suspended: false,
   });
   const [isEdit, setIsEdit] = useState(false);
+  const toast = useToast();
+
+  async function fetchData() {
+    const { data } = await instance.get("/company/fetch");
+    setCompanies(data);
+  }
 
   useEffect(() => {
-    async function fetchData() {
-      const { data } = await instance.get("/company/fetch");
-      setCompanies(data);
-    }
     fetchData();
   }, []);
+
+  const handleSuspend = (id: string, suspended: boolean) => {
+    swal({
+      title: `Are you sure you want to ${suspended ? "unsuspend" : "suspend"}`,
+      icon: "warning",
+      //@ts-ignore
+      buttons: true,
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        await instance.post("/company/suspend", {
+          id,
+          suspended,
+        });
+        toast({
+          // @ts-ignore
+          title: suspended ? "Unsuspend success" : "Suspend success",
+          variant: "left-accent",
+          isClosable: true,
+          status: "success",
+          position: "bottom-left",
+        });
+        fetchData();
+        // if (formik.values.selected === "content") {
+        //   //@ts-ignore
+        //   await instance.delete("/configuration/content", { data: { id } });
+        // } else if (formik.values.selected === "language")
+        //   //@ts-ignore
+        //   await instance.delete("/configuration/language", { data: { id } });
+        // //@ts-ignore
+        // else await instance.delete("/configuration/location", { data: { id } });
+
+        // setvalues(
+        //   await instance.get(`/configuration/${formik.values.selected}s`)
+        // );
+
+        // formik.values.selected = 'content'
+      }
+    });
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -83,6 +131,14 @@ const company = () => {
           },
         });
         console.log(data);
+        toast({
+          // @ts-ignore
+          title: "Added successfully",
+          variant: "left-accent",
+          isClosable: true,
+          status: "success",
+          position: "bottom-left",
+        });
       } else {
         formData.append("id", user.id);
         formData.append("oldLogo", user.logo);
@@ -93,6 +149,14 @@ const company = () => {
           },
         });
         console.log(data);
+        toast({
+          // @ts-ignore
+          title: "Edited successfully",
+          variant: "left-accent",
+          isClosable: true,
+          status: "success",
+          position: "bottom-left",
+        });
       }
       onClose();
       setName("");
@@ -102,8 +166,7 @@ const company = () => {
       setPhonenumber("");
       setLogo("");
 
-      const comps = await instance.get("/company/fetch");
-      setCompanies(comps.data);
+      fetchData();
     } catch (error) {
       console.log(error);
     }
@@ -348,9 +411,25 @@ const company = () => {
                         <FiEdit />
                       </button>
 
-                      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">
-                        <BiBlock />
-                      </button>
+                      {company.suspended ? (
+                        <button
+                          onClick={() =>
+                            handleSuspend(company.id, company.suspended)
+                          }
+                          className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 border border-yellow-500 rounded"
+                        >
+                          <CgUnblock />
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() =>
+                            handleSuspend(company.id, company.suspended)
+                          }
+                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                        >
+                          <BiBlock />
+                        </button>
+                      )}
                     </span>
                   </td>
                 </tr>
