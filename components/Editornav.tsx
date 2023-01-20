@@ -25,6 +25,9 @@ const Editornav = () => {
             </div>
           </MenuButton>
           <MenuList>
+            <Link href="/editor/changepassword">
+              <MenuItem>Change password</MenuItem>
+            </Link>
             <MenuItem onClick={logout}>Logout</MenuItem>
           </MenuList>
         </Menu>

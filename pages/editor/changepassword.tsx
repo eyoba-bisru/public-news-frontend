@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { useAuth } from "../../context/AuthContext";
 import instance from "../../lib/axiosInstance";
 import { useToast } from "@chakra-ui/react";
+import Editornav from "../../components/Editornav";
 
 const Changepassword = () => {
   const context = useAuth();
@@ -71,8 +72,8 @@ const Changepassword = () => {
       <Head>
         <title>Change Password</title>
       </Head>
-      <UserNavbar />
-      <div className="w-[314.705px] py-[48.6px] mt-[6rem]">
+      <Editornav />
+      <div className="w-[314.705px] py-[48.6px] mt-[4rem]">
         <div className="w-full bg-white rounded-md">
           <div className="px-6 py-1 flex flex-col gap-6">
             <p className="font-light text-2xl text-center mt-6">

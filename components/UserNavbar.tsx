@@ -196,6 +196,9 @@ const UserNavbar = ({ route }: Props) => {
                 />
               </MenuButton>
               <MenuList>
+                <Link href="/auth/changepassword">
+                  <MenuItem>Change password</MenuItem>
+                </Link>
                 <MenuItem onClick={logout}>Logout</MenuItem>
               </MenuList>
             </Menu>

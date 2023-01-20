@@ -8,9 +8,12 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
+import Head from "next/head";
+import { useEffect, useState } from "react";
 
 import { Bar, Pie } from "react-chartjs-2";
 import SidebarWithHeader from "../../components/Sidenav";
+import instance from "../../lib/axiosInstance";
 
 ChartJS.register(
   CategoryScale,
@@ -101,8 +104,28 @@ const data2 = {
 };
 
 const dashboard = () => {
+  const [numOfAuthors, setNumOfAuthors] = useState(0);
+  const [numOfPosts, setNumOfPosts] = useState(0);
+  const [numOfSubs, setNumOfSubs] = useState(0);
+
+  async function fetchNums() {
+    const { data: authors } = await instance.get("/company/numOfAuthors");
+    setNumOfAuthors(authors);
+    const { data: posts } = await instance.get("/post/numOfPosts");
+    setNumOfPosts(posts);
+    const { data: subs } = await instance.get("/auth/numOfSubs");
+    setNumOfSubs(subs);
+  }
+
+  useEffect(() => {
+    fetchNums();
+  }, []);
+
   return (
     <SidebarWithHeader>
+      <Head>
+        <title>Dashboard</title>
+      </Head>
       <div>
         <div className="container px-6 mx-auto grid">
           <h2 className="my-4 text-2xl font-semibold text-primary">
@@ -122,7 +145,7 @@ const dashboard = () => {
               </div>
               <div>
                 <p className="mb-2 text-sm font-medium text-gray-600">
-                  Total Users
+                  Total Vistors
                 </p>
                 <p className="text-lg font-semibold text-gray-700">19238</p>
               </div>
@@ -139,9 +162,11 @@ const dashboard = () => {
               </div>
               <div>
                 <p className="mb-2 text-sm font-medium text-gray-600">
-                  User active
+                  Total subscribers
                 </p>
-                <p className="text-lg font-semibold text-gray-700">120</p>
+                <p className="text-lg font-semibold text-gray-700">
+                  {numOfSubs}
+                </p>
               </div>
             </div>
             <div className="flex items-center p-4 bg-white rounded-lg shadow-xs">
@@ -156,9 +181,11 @@ const dashboard = () => {
               </div>
               <div>
                 <p className="mb-2 text-sm font-medium text-gray-600">
-                  Users suspend
+                  Total news posted
                 </p>
-                <p className="text-lg font-semibold text-gray-700">6389</p>
+                <p className="text-lg font-semibold text-gray-700">
+                  {numOfPosts}
+                </p>
               </div>
             </div>
             <div className="flex items-center p-4 bg-white rounded-lg shadow-xs">
@@ -179,9 +206,11 @@ const dashboard = () => {
               </div>
               <div>
                 <p className="mb-2 text-sm font-medium text-gray-600">
-                  User vip
+                  Total Authors
                 </p>
-                <p className="text-lg font-semibold text-gray-700">828</p>
+                <p className="text-lg font-semibold text-gray-700">
+                  {numOfAuthors}
+                </p>
               </div>
             </div>
           </div>
