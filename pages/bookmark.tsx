@@ -1,9 +1,12 @@
 import Head from "next/head";
 import Link from "next/link";
 import { NextRouter, useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import CategoryCard from "../components/CategoryCard";
 import Footer from "../components/Footer";
 import UserNavbar from "../components/UserNavbar";
+import { useAuth } from "../context/AuthContext";
+import instance from "../lib/axiosInstance";
 import axiosInstance from "../lib/axiosInstance";
 import { day, month, timeFunc, year } from "../lib/timeConverter";
 
@@ -22,24 +25,21 @@ type Data = {
   };
 }[];
 
-const data: Data = [
-  {
-    contentId: "sjlfk",
-    createdAt: new Date(Date.now()),
-    description: "jflsdjf",
-    id: "ksdfkljs",
-    imageUrl: "jflsjfl",
-    language: {
-      name: "kdslfj",
-    },
-    title: "fksdjflk",
-    user: {
-      shortName: "flsjf",
-    },
-  },
-];
-
 const Category = () => {
+  const user = useAuth().user;
+  const [data, setData] = useState<Data>([]);
+
+  async function fetchData() {
+    const { data } = await instance.post("/post/bookmarks", {
+      userId: user.id,
+    });
+    setData(data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
       <Head>
@@ -61,7 +61,7 @@ const Category = () => {
                     <CategoryCard
                       company={d.user?.shortName}
                       description={d.description}
-                      image={d.imageUrl}
+                      image={`http://localhost:4000/files/${d.imageUrl}`}
                       title={d.title}
                       time={timeFunc(d.createdAt)}
                       date={`${day(d.createdAt)} ${month(d.createdAt)} ${year(

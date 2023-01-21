@@ -1,7 +1,7 @@
 import { Avatar, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { BiMenuAltRight } from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
-import { BsSearch } from "react-icons/bs";
+import { BsBookmarks, BsFillBookmarkFill, BsSearch } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import axiosInstance from "../lib/axiosInstance";
 import { useRouter } from "next/router";
 import React from "react";
 import { useAuth } from "../context/AuthContext";
+import { MdLogout, MdOutlineChangeCircle } from "react-icons/md";
 
 type Props = {
   route?: string;
@@ -196,10 +197,22 @@ const UserNavbar = ({ route }: Props) => {
                 />
               </MenuButton>
               <MenuList>
-                <Link href="/auth/changepassword">
-                  <MenuItem>Change password</MenuItem>
+                <Link href="/bookmark">
+                  <MenuItem className="gap-2">
+                    <BsBookmarks />
+                    Bookmark
+                  </MenuItem>
                 </Link>
-                <MenuItem onClick={logout}>Logout</MenuItem>
+                <Link href="/auth/changepassword">
+                  <MenuItem className="gap-2">
+                    <MdOutlineChangeCircle />
+                    Change password
+                  </MenuItem>
+                </Link>
+                <MenuItem className="gap-2" onClick={logout}>
+                  <MdLogout />
+                  Logout
+                </MenuItem>
               </MenuList>
             </Menu>
           ) : route == "/auth/login" ? (

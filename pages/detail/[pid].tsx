@@ -1,15 +1,19 @@
 import React from "react";
-import { Avatar } from "@chakra-ui/react";
+import { Avatar, useToast } from "@chakra-ui/react";
 import Head from "next/head";
 import UserNavbar from "../../components/UserNavbar";
 import { BsFillBookmarkPlusFill } from "react-icons/bs";
 import Link from "next/link";
 import Footer from "../../components/Footer";
-import { NextRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import axiosInstance from "../../lib/axiosInstance";
 import convert from "../../lib/convert";
 import { monthNames } from "../../lib/months";
 import { day, month, timeFunc, year } from "../../lib/timeConverter";
+import { useAuth } from "../../context/AuthContext";
+import swal from "sweetalert";
+import instance from "../../lib/axiosInstance";
+import { MdBookmarkRemove } from "react-icons/md";
 
 type Data = {
   id: string;
@@ -25,6 +29,13 @@ type Data = {
   content: {
     id: string;
   };
+  Bookmark: {
+    userId: string;
+    user: {
+      id: string;
+    };
+    postId: string;
+  }[];
 };
 type Reco = {
   id: string;
@@ -33,6 +44,99 @@ type Reco = {
 }[];
 
 const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
+  const user = useAuth().user;
+  const router = useRouter();
+  const toast = useToast();
+
+  const handleRedirect = () => {
+    swal({
+      title: `You have to login to bookmark`,
+      icon: "warning",
+      //@ts-ignore
+      buttons: true,
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        router.replace("/auth/login");
+      }
+    });
+  };
+
+  const handleBookmark = async () => {
+    try {
+      const { data: bookmark } = await instance.post("/post/bookmark", {
+        userId: user.id,
+        postId: post.id,
+      });
+
+      console.log(bookmark);
+
+      toast({
+        title: "Bookmark added",
+        variant: "left-accent",
+        isClosable: true,
+        status: "success",
+        position: "bottom-left",
+      });
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      toast({
+        // @ts-ignore
+        title: error?.response?.data,
+        variant: "left-accent",
+        isClosable: true,
+        status: "error",
+        position: "bottom-left",
+      });
+    }
+  };
+
+  const handleRemove = () => {
+    swal({
+      title: "Do you want to remove from bookmark?",
+      icon: "warning",
+      // @ts-ignore
+      buttons: true,
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          const { data: bookmark } = await instance.post(
+            "/post/removeBookmark",
+            {
+              userId: user.id,
+              postId: post.id,
+            }
+          );
+
+          toast({
+            title: "Bookmark removed",
+            variant: "left-accent",
+            isClosable: true,
+            status: "success",
+            position: "bottom-left",
+          });
+        } catch (error) {
+          toast({
+            // @ts-ignore
+            title: error?.response.data,
+            variant: "left-accent",
+            isClosable: true,
+            status: "error",
+            position: "bottom-left",
+          });
+        }
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+    });
+  };
+
   return (
     <div className="relative min-h-screen">
       <Head>
@@ -51,7 +155,7 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
                       <div className="flex gap-2 items-center">
                         <Avatar
                           name={post?.user.name}
-                          src={post?.user.logo}
+                          src={`http://localhost:4000/files/${post?.user.logo}`}
                           className="object-contain object-center -z-10"
                         />
                         <div>
@@ -67,13 +171,35 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
                         </div>
                       </div>
 
-                      <Link href="/bookmark">
-                        <BsFillBookmarkPlusFill className="text-primary w-5 h-14" />
-                      </Link>
+                      {/* <Link href="/bookmark"> */}
+                      <button>
+                        {user ? (
+                          post.Bookmark.some(
+                            (el) =>
+                              el.userId === user.id && el.postId === post.id
+                          ) ? (
+                            <MdBookmarkRemove
+                              onClick={handleRemove}
+                              className="text-primary w-5 h-14"
+                            />
+                          ) : (
+                            <BsFillBookmarkPlusFill
+                              onClick={handleBookmark}
+                              className="text-primary w-5 h-14"
+                            />
+                          )
+                        ) : (
+                          <BsFillBookmarkPlusFill
+                            onClick={handleRedirect}
+                            className="text-primary w-5 h-14"
+                          />
+                        )}
+                      </button>
+                      {/* </Link> */}
                     </div>
                     <div>
                       <img
-                        src={post?.imageUrl}
+                        src={`http://localhost:4000/files/${post?.imageUrl}`}
                         alt="image"
                         className="md:w-full sm:h-[370px] lg:h-[370px] w-full h-[200px]"
                       />
@@ -103,7 +229,10 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
                   </p>
                 </div>
                 <div className="sm:w-[43%] sm:h-full h-[65%] w-[80%] flex items-center justify-center">
-                  <img src={d.imageUrl} className="w-[90%] h-[90%] rounded" />
+                  <img
+                    src={`http://localhost:4000/files/${d.imageUrl}`}
+                    className="w-[90%] h-[90%] rounded"
+                  />
                 </div>
               </Link>
             ))}

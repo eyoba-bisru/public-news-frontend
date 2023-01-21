@@ -8,13 +8,14 @@ type Props = {
 };
 
 const ImageCard = ({ company, description, image, location, title }: Props) => {
+  const img = "http://localhost:4000/files/" + image;
+
+  console.log(img);
   return (
     <div
       className="bg-gray-100 m-auto max-w-md h-52 rounded-md"
       style={{
-        backgroundImage: `url(
-          ${image}
-        )`,
+        backgroundImage: "url(" + img + ")",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
