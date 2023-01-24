@@ -9,14 +9,29 @@ import * as Yup from 'yup'
 import { useAuth } from '../../context/AuthContext'
 import instance from '../../lib/axiosInstance'
 import { useToast } from '@chakra-ui/react'
+
 type Values = {
   id: string
   name: string
 }[]
+type User = {
+  name: string
+  email: string
+  password: string
+  phone: string
+  shortName: string
+  logo: string
+  id: string
+  suspended: boolean
+}
+
 const addpost = () => {
   const [locations, setLocations] = useState<Values>([])
   const [contents, setContents] = useState<Values>([])
   const [languages, setLanguages] = useState<Values>([])
+  const [imageUrl, setImageUrl] = useState('')
+  const toast = useToast()
+
   async function fetchLocations() {
     const { data } = await instance.get('/configuration/locations')
     setLocations(data)
@@ -39,22 +54,45 @@ const addpost = () => {
     initialValues: {
       titles: '',
       description: '',
-      selectlocation: 'location',
+      imageUrl: '',
+      selectlocation: '',
+      selectcontent: '',
+      selectlanguage: '',
     },
 
     validationSchema: Yup.object({
       titles: Yup.string().min(8, 'Too Short!').max(20, 'Too Long!'),
       description: Yup.string().min(100, 'Too Short!'),
       selectlocation: Yup.string(),
+      selectlanguage: Yup.string(),
+      selectcontent: Yup.string(),
+      imageUrl: Yup.string(),
     }),
 
     onSubmit: async (values, { resetForm }) => {
       alert(JSON.stringify(values, null, 2))
+      console.log(formik.values.selectlocation)
+
       try {
-        console.log('hi')
-        console.log(values.selectlocation)
+        const formData = new FormData()
+        formData.append('title', values.titles)
+        formData.append('files', imageUrl)
+        formData.append('description', values.description)
+        formData.append('contentId', values.selectcontent)
+        formData.append('locationId', values.selectlocation)
+        formData.append('languageId', values.selectlanguage)
+        const { data } = await instance.post('/post/addPost', formData)
+        toast({
+          // @ts-ignore
+          title: 'News posted successfully',
+          variant: 'left-accent',
+          isClosable: true,
+          status: 'success',
+          position: 'bottom-left',
+        })
         resetForm()
       } catch (error) {
+        console.log('hi error')
         console.log(error)
       }
     },
@@ -122,14 +160,16 @@ const addpost = () => {
 
                   <select
                     id='location'
-                    value={formik.values.selectslocaiton}
+                    value={formik.values.selectlocaiton}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     name='selectlocation'
                     className='rounded bg-white text-sm focus:ring-primary focus:border-primary block w-full py-2.5'
                   >
                     {locations?.map((location) => (
-                      <option key={location.id}>{location.name}</option>
+                      <option key={location.id} value={location.id}>
+                        {location.name}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -139,10 +179,16 @@ const addpost = () => {
                   </label>
                   <select
                     id='content'
+                    value={formik.values.selectcontent}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    name='selectcontent'
                     className='rounded bg-white border-2 border-white text-sm focus:ring-primary focus:border-primary block w-full py-2.5'
                   >
                     {contents?.map((content) => (
-                      <option key={content.id}>{content.name}</option>
+                      <option key={content.id} value={content.id}>
+                        {content.name}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -152,10 +198,16 @@ const addpost = () => {
                   </label>
                   <select
                     id='language'
+                    value={formik.values.selectlanguage}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    name='selectlanguage'
                     className='rounded bg-white border-2 border-white text-sm focus:ring-primary focus:border-primary block w-full p-2.5'
                   >
                     {languages?.map((language) => (
-                      <option key={language.id}>{language.name}</option>
+                      <option key={language.id} value={language.id}>
+                        {language.name}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -167,6 +219,9 @@ const addpost = () => {
                   <input
                     type='file'
                     id='image'
+                    accept='image/*'
+                    // @ts-ignore
+                    onChange={(e) => setImageUrl(e.target.files[0])}
                     required
                     className='ml-6 rounded block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-secondary'
                   />
