@@ -31,7 +31,7 @@ const UserNavbar = ({ route }: Props) => {
   const logout = useAuth().logout;
 
   async function fetchData() {
-    const { data } = await axiosInstance.get<Data>("/configuration/all");
+    const { data } = await axiosInstance.get<Data>("/configuration/contents");
     setData(data);
     setData([{ id: "home", name: "Home", type: "" }, ...data]);
   }
@@ -69,116 +69,29 @@ const UserNavbar = ({ route }: Props) => {
               screen < 768 ? "grid grid-cols-4" : "flex flex-col"
             }`}
           >
-            {screen < 768
-              ? data.length > 0 &&
-                data?.map((menu) => {
-                  return (
-                    <Link
-                      href={`/${
-                        menu.name != "Home"
-                          ? menu.type + "/" + menu.name.toLowerCase()
-                          : "/"
-                      }`}
-                      key={menu.id}
-                    >
-                      <li
-                        className={`text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[25vw] font-medium md:w-auto ${
-                          router.asPath ===
-                          "/" + menu.type + "/" + menu.name.toLowerCase()
-                            ? "text-secondary"
-                            : menu.name == "Home" && router.asPath == "/"
-                            ? "text-secondary"
-                            : "text-text"
-                        }`}
-                      >
-                        {menu.name}
-                      </li>
-                    </Link>
-                  );
-                })
-              : data.length > 0 &&
-                data
-                  .slice(0, 5)
-                  .concat({ id: "more", name: "More", type: "" })
-                  .map((menu) => {
-                    if (menu.name == "More") {
-                      return (
-                        <Menu key={menu.id}>
-                          <MenuButton>
-                            <div className="text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[50vw] font-medium md:w-auto">
-                              More
-                              <AiFillCaretDown />
-                            </div>
-                          </MenuButton>
-                          <MenuList
-                            bgColor="rgb(188 185 147)"
-                            display="grid"
-                            gridTemplateColumns="2"
-                          >
-                            <div className="bg-userNav">
-                              {data.length > 0 &&
-                                data.slice(5).map((menu) => {
-                                  return (
-                                    <Link
-                                      href={`/${
-                                        menu.name != "Home"
-                                          ? menu.type +
-                                            "/" +
-                                            menu.name.toLowerCase()
-                                          : "/"
-                                      }`}
-                                      key={menu.id}
-                                    >
-                                      <MenuItem bg="rgb(188 185 147)">
-                                        <div
-                                          className={`text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[50vw] font-medium md:w-auto ${
-                                            router.asPath ===
-                                            "/" +
-                                              menu.type +
-                                              "/" +
-                                              menu.name.toLowerCase()
-                                              ? "text-secondary"
-                                              : menu.name == "Home" &&
-                                                router.asPath == "/"
-                                              ? "text-secondary"
-                                              : "text-text"
-                                          }`}
-                                        >
-                                          {menu.name}
-                                        </div>
-                                      </MenuItem>
-                                    </Link>
-                                  );
-                                })}
-                            </div>
-                          </MenuList>
-                        </Menu>
-                      );
-                    }
-                    return (
-                      <Link
-                        href={`/${
-                          menu.name != "Home"
-                            ? menu.type + "/" + menu.name.toLowerCase()
-                            : "/"
-                        }`}
-                      >
-                        <li
-                          key={menu.id}
-                          className={`text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[50vw] font-medium md:w-auto ${
-                            router.asPath ===
-                            "/" + menu.type + "/" + menu.name.toLowerCase()
-                              ? "text-secondary"
-                              : menu.name == "Home" && router.asPath == "/"
-                              ? "text-secondary"
-                              : "text-text"
-                          }`}
-                        >
-                          {menu.name}
-                        </li>
-                      </Link>
-                    );
-                  })}
+            {data.map((d) => {
+              return (
+                <Link
+                  href={`/${
+                    d.name != "Home" ? d.type + "/" + d.name.toLowerCase() : "/"
+                  }`}
+                  key={d.id}
+                >
+                  <li
+                    className={`text-text text-[14px] md:text-[16px] hover:text-secondary hover:cursor-pointer transition-all h-10 flex justify-center items-center w-[25vw] font-medium md:w-auto ${
+                      router.asPath ===
+                      "/" + d.type + "/" + d.name.toLowerCase()
+                        ? "text-secondary"
+                        : d.name == "Home" && router.asPath == "/"
+                        ? "text-secondary"
+                        : "text-text"
+                    }`}
+                  >
+                    {d.name}
+                  </li>
+                </Link>
+              );
+            })}
           </ul>
         </div>
         <div className="flex gap-4 justify-center items-center">

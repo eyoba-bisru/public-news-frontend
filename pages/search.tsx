@@ -37,7 +37,7 @@ const search = ({
             >
               <option value="all">All</option>
               {content.map((d) => (
-                <option value={d.name.toLowerCase()} key={d.id}>
+                <option key={d.id} value={d.name.toLowerCase()}>
                   {d.name}
                 </option>
               ))}
