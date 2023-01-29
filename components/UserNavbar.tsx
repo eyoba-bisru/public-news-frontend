@@ -33,7 +33,11 @@ const UserNavbar = ({ route }: Props) => {
   async function fetchData() {
     const { data } = await axiosInstance.get<Data>("/configuration/contents");
     setData(data);
-    setData([{ id: "home", name: "Home", type: "" }, ...data]);
+    setData([
+      { id: "home", name: "Home", type: "" },
+      ...data,
+      { id: "weather", name: "weather", type: "weather" },
+    ]);
   }
 
   useEffect(() => {

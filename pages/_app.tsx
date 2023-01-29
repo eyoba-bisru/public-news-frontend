@@ -19,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     "/auth/signup",
     "/search",
     "/detail/[pid]",
+    "/weather/weather",
   ];
 
   return (

@@ -213,7 +213,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <HStack>
                 <Avatar
                   size={"sm"}
-                  src={`http://localhost:4000/files/${user.logo}`}
+                  src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/files/${user.logo}`}
                 />
                 <VStack
                   display={{ base: "none", md: "flex" }}

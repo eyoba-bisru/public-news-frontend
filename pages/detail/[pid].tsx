@@ -155,7 +155,7 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
                       <div className="flex gap-2 items-center">
                         <Avatar
                           name={post?.user.name}
-                          src={`http://localhost:4000/files/${post?.user.logo}`}
+                          src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/files/${post?.user.logo}`}
                           className="object-contain object-center -z-10"
                         />
                         <div>
@@ -199,7 +199,7 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
                     </div>
                     <div>
                       <img
-                        src={`http://localhost:4000/files/${post?.imageUrl}`}
+                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/files/${post?.imageUrl}`}
                         alt="image"
                         className="md:w-full sm:h-[370px] lg:h-[370px] w-full h-[200px]"
                       />
@@ -228,7 +228,7 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
                 >
                   <div className="sm:w-[43%] sm:h-full h-[65%] w-[80%] flex items-center justify-center">
                     <img
-                      src={`http://localhost:4000/files/${d.imageUrl}`}
+                      src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/files/${d.imageUrl}`}
                       className="w-[90%] h-[90%] rounded"
                     />
                   </div>

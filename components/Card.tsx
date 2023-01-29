@@ -10,7 +10,7 @@ const Card = ({ image, title, location }: Props) => {
   return (
     <div className="m-auto rounded-md overflow-hidden bg-white shadow-md duration-200 hover:shadow-xl">
       <img
-        src={`http://localhost:4000/files/${image}`}
+        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/files/${image}`}
         alt="image"
         className="h-28 object-cover w-full"
       />
