@@ -18,7 +18,7 @@ const Editornav = () => {
               <Avatar
                 textColor="#280004"
                 bg="#D9D9D9"
-                src={`http://localhost:4000/files/${user.logo}`}
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/files/${user.logo}`}
                 size="sm"
               />
               <p>{user.name}</p>

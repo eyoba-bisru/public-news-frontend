@@ -45,7 +45,7 @@ const Category = ({ data }: { data: Data }) => {
                     <CategoryCard
                       company={d.user?.shortName}
                       description={d.description}
-                      image={`http://localhost:4000/files/${d.imageUrl}`}
+                      image={`${process.env.NEXT_PUBLIC_BACKEND_URL}/files/${d.imageUrl}`}
                       title={d.title}
                       time={timeFunc(d.createdAt)}
                       date={`${day(d.createdAt)} ${month(d.createdAt)} ${year(
