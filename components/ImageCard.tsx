@@ -3,11 +3,10 @@ type Props = {
   title: string;
   description: string;
   location: string;
-  company: string;
   image: string;
 };
 
-const ImageCard = ({ company, description, image, location, title }: Props) => {
+const ImageCard = ({ description, image, location, title }: Props) => {
   const img = "http://localhost:4000/files/" + image;
 
   console.log(img);
@@ -35,10 +34,6 @@ const ImageCard = ({ company, description, image, location, title }: Props) => {
             <div className="flex gap-1 justify-center items-center">
               <ImLocation2 className="text-green-400" />
               <p>{location}</p>
-            </div>
-            <div className="w-max flex items-center justify-center gap-1 font-bold text-xs">
-              <p>{company}</p>
-              <img src="/verified.svg" alt="verified" className="h-5" />
             </div>
           </div>
         </div>

@@ -4,17 +4,9 @@ type Props = {
   description: string;
   time: string;
   date: string;
-  company: string;
 };
 
-const CategoryCard = ({
-  image,
-  company,
-  date,
-  description,
-  time,
-  title,
-}: Props) => {
+const CategoryCard = ({ image, date, description, time, title }: Props) => {
   return (
     <div className="flex bg-white flex-col w-auto h-auto max-w-sm justify-center items-center sm:h-[145.205px] sm:flex-row sm:w-[600px] sm:max-w-full p-4 gap-4 rounded-md">
       <img className="h-full w-full sm:w-auto" src={image} alt="image" />
@@ -31,10 +23,6 @@ const CategoryCard = ({
           <div className="flex gap-4">
             <p className="text-[10px]">{time}</p>
             <p className="text-[10px]">{date}</p>
-          </div>
-          <div className="w-max flex items-center justify-center gap-1 font-bold text-xs">
-            <p className="text-xs">{company}</p>
-            <img src="/verified.svg" alt="verified" className="h-4" />
           </div>
         </div>
       </div>

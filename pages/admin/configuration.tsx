@@ -231,7 +231,10 @@ const configuration = () => {
         </form>
         <div className="w-full flex flex-col gap-2 justify-center items-center">
           {values?.data.map((value) => (
-            <div className="w-full md:w-[90%] lg:w-[80%] bg-white p-4 flex justify-between items-center rounded-md">
+            <div
+              key={value.id}
+              className="w-full md:w-[90%] lg:w-[80%] bg-white p-4 flex justify-between items-center rounded-md"
+            >
               <p>{value.name}</p>
               <div className="flex justify-center items-center gap-2">
                 <button

@@ -25,9 +25,6 @@ type Companies = {
   name: string;
   email: string;
   password: string;
-  phone: string;
-  shortName: string;
-  logo: string;
   id: string;
   suspended: boolean;
 }[];
@@ -35,9 +32,6 @@ type User = {
   name: string;
   email: string;
   password: string;
-  phone: string;
-  shortName: string;
-  logo: string;
   id: string;
   suspended: boolean;
 };
@@ -46,19 +40,13 @@ const company = () => {
   const [cname, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phonenumber, setPhonenumber] = useState("");
-  const [shortname, setShortname] = useState("");
-  const [logo, setLogo] = useState("");
   const [companies, setCompanies] = useState<Companies>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [user, setUser] = useState<User>({
     email: "",
     id: "",
-    logo: "",
     name: "",
     password: "",
-    phone: "",
-    shortName: "",
     suspended: false,
   });
   const [isEdit, setIsEdit] = useState(false);
@@ -115,21 +103,21 @@ const company = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", cname);
-    formData.append("file", logo);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("shortName", shortname);
-    formData.append("phoneNumber", phonenumber);
+
+    let dataToSend = {
+      id: user.id,
+      oldPassword: user.password,
+      password,
+      email,
+      name: cname,
+    };
 
     try {
       if (!isEdit) {
-        const { data } = await instance.post("/auth/registerEditor", formData, {
-          headers: {
-            "content-type": "multipart/form-data",
-          },
-        });
+        const { data } = await instance.post(
+          "/auth/registerEditor",
+          dataToSend
+        );
         console.log(data);
         toast({
           // @ts-ignore
@@ -140,14 +128,7 @@ const company = () => {
           position: "bottom-left",
         });
       } else {
-        formData.append("id", user.id);
-        formData.append("oldLogo", user.logo);
-        formData.append("oldPassword", user.password);
-        const { data } = await instance.patch("/company/update", formData, {
-          headers: {
-            "content-type": "multipart/form-data",
-          },
-        });
+        const { data } = await instance.patch("/company/update", dataToSend);
         console.log(data);
         toast({
           // @ts-ignore
@@ -162,9 +143,6 @@ const company = () => {
       setName("");
       setEmail("");
       setPassword("");
-      setShortname("");
-      setPhonenumber("");
-      setLogo("");
 
       fetchData();
     } catch (error) {
@@ -184,10 +162,7 @@ const company = () => {
 
     // setPassword(data.password);
     setName(data.name);
-    setShortname(data.shortName);
     setEmail(data.email);
-    setLogo(data.logo);
-    setPhonenumber(data.phone);
   };
   return (
     <SidebarWithHeader>
@@ -196,18 +171,13 @@ const company = () => {
       </Head>
       <div className="flex flex-col gap-10 px-6 h-screen">
         <div className="flex justify-between items-center">
-          <p className=" text-primary text-[23.165px] font-bold">
-            News Companies
-          </p>
+          <p className=" text-primary text-[23.165px] font-bold">Authors</p>
           <div>
             <div
               onClick={() => {
                 setName("");
                 setEmail("");
                 setPassword("");
-                setShortname("");
-                setPhonenumber("");
-                setLogo("");
                 setIsEdit(false);
                 onOpen();
               }}
@@ -217,10 +187,10 @@ const company = () => {
               <AiFillPlusCircle className="text-white text-2xl" />
             </div>
             <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalContent h="370px" maxW="52rem" marginBlock="36">
+              <ModalContent h="370px" maxW="32rem" marginBlock="36">
                 <Box>
                   <ModalHeader className="text-primary text-[19.21px] text-center">
-                    Add News Company
+                    Add Authors
                   </ModalHeader>
                   <ModalCloseButton className="text-secondary" />
                   <ModalBody>
@@ -228,102 +198,53 @@ const company = () => {
                       onSubmit={handleSubmit}
                       className="flex flex-col justify-center items-center mt-4 gap-4"
                     >
-                      <div className="flex w-full justify-center items-center gap-4">
-                        <div className="flex flex-col items-center gap-4 w-2/5 jusitfy-center">
-                          <InputGroup>
+                      <div className="flex flex-col items-center gap-4 w-4/5 jusitfy-center">
+                        <InputGroup>
+                          <Input
+                            type="text"
+                            className="w-full"
+                            borderColor="#4C230A"
+                            placeholder="Name"
+                            value={cname}
+                            onChange={(e) => setName(e.target.value)}
+                            _focus={{ border: "none" }}
+                            required
+                          />
+                        </InputGroup>
+                        <InputGroup>
+                          {isEdit ? (
                             <Input
-                              type="text"
-                              className="w-full"
+                              type="password"
                               borderColor="#4C230A"
-                              placeholder="Name"
-                              value={cname}
-                              onChange={(e) => setName(e.target.value)}
+                              placeholder="Password"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                              _focus={{ border: "none" }}
+                            />
+                          ) : (
+                            <Input
+                              type="password"
+                              borderColor="#4C230A"
+                              placeholder="Password"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
                               _focus={{ border: "none" }}
                               required
                             />
-                          </InputGroup>
-                          <InputGroup>
-                            {isEdit ? (
-                              <Input
-                                type="password"
-                                borderColor="#4C230A"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                _focus={{ border: "none" }}
-                              />
-                            ) : (
-                              <Input
-                                type="password"
-                                borderColor="#4C230A"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                _focus={{ border: "none" }}
-                                required
-                              />
-                            )}
-                          </InputGroup>
-                          <InputGroup>
-                            <Input
-                              type="text"
-                              borderColor="#4C230A"
-                              placeholder="Company short name"
-                              _focus={{ border: "none" }}
-                              value={shortname}
-                              onChange={(e) => setShortname(e.target.value)}
-                              required
-                            />
-                          </InputGroup>
-                        </div>
-                        <div className="flex flex-col gap-4 w-2/5 items-center">
-                          <InputGroup>
-                            <Input
-                              type="email"
-                              borderColor="#4C230A"
-                              placeholder="Email"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                              _focus={{ border: "none" }}
-                              required
-                            />
-                          </InputGroup>
-                          <InputGroup>
-                            <Input
-                              type="tel"
-                              borderColor="#4C230A"
-                              placeholder="Phone Number"
-                              value={phonenumber}
-                              onChange={(e) => setPhonenumber(e.target.value)}
-                              _focus={{ border: "none" }}
-                              required
-                            />
-                          </InputGroup>
-                          <InputGroup>
-                            <span className="mt-1 ml-4 text-gray-400">
-                              Logo
-                            </span>
-                            <span className="sr-only"></span>
-                            {isEdit ? (
-                              <input
-                                type="file"
-                                accept="image/*"
-                                // @ts-ignore
-                                onChange={(e) => setLogo(e.target.files[0])}
-                                className="ml-6 block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-secondary"
-                              />
-                            ) : (
-                              <input
-                                type="file"
-                                accept="image/*"
-                                // @ts-ignore
-                                onChange={(e) => setLogo(e.target.files[0])}
-                                required
-                                className="ml-6 block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-secondary"
-                              />
-                            )}
-                          </InputGroup>
-                        </div>
+                          )}
+                        </InputGroup>
+
+                        <InputGroup>
+                          <Input
+                            type="email"
+                            borderColor="#4C230A"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            _focus={{ border: "none" }}
+                            required
+                          />
+                        </InputGroup>
                       </div>
 
                       {isEdit ? (
@@ -331,7 +252,7 @@ const company = () => {
                           bg="green"
                           _hover={{ bg: "#green" }}
                           color="white"
-                          width="40%"
+                          width="60%"
                           paddingY="5"
                           type="submit"
                         >
@@ -342,7 +263,7 @@ const company = () => {
                           bg="#4C230A"
                           _hover={{ bg: "#A53F2B" }}
                           color="white"
-                          width="40%"
+                          width="60%"
                           paddingY="5"
                           type="submit"
                         >
@@ -361,15 +282,13 @@ const company = () => {
           <thead className="block md:table-header-group">
             <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto  md:relative ">
               <th className="bg-primary p-2 text-white  font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                Company Name
+                Author name
               </th>
 
               <th className="bg-primary p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                 Email Address
               </th>
-              <th className="bg-primary p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
-                Phone
-              </th>
+
               <th className="bg-primary p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">
                 Actions
               </th>
@@ -378,10 +297,13 @@ const company = () => {
           <tbody className="block md:table-row-group">
             {companies?.map((company) => {
               return (
-                <tr className="bg-white border border-grey-500 md:border-none block md:table-row">
+                <tr
+                  key={company.id}
+                  className="bg-white border border-grey-500 md:border-none block md:table-row"
+                >
                   <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                     <span className="inline-block w-1/3 md:hidden font-bold">
-                      Company Name
+                      Author Name
                     </span>
                     {company.name}
                   </td>
@@ -391,12 +313,6 @@ const company = () => {
                       Email Address
                     </span>
                     {company.email}
-                  </td>
-                  <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
-                    <span className="inline-block w-1/3 md:hidden font-bold">
-                      Phone
-                    </span>
-                    {company.phone}
                   </td>
                   <td className="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                     <span className="flex gap-2">

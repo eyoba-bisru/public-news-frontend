@@ -20,9 +20,6 @@ type Data = {
     name: string;
   };
   createdAt: Date;
-  user: {
-    shortName: string;
-  };
 }[];
 
 const Category = () => {
@@ -59,7 +56,6 @@ const Category = () => {
                 {data.map((d) => (
                   <Link key={d.id} href={`/detail/${d.id}`}>
                     <CategoryCard
-                      company={d.user?.shortName}
                       description={d.description}
                       image={`http://localhost:4000/files/${d.imageUrl}`}
                       title={d.title}

@@ -215,28 +215,32 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
               </div>
             </div>
           </div>
-          <div className="sm:h-[750px] h-[1400px] lg:mt-[86px] bg-white lg:w-[35%] w-[70%] hidden lg:flex flex-col items-center gap-5 lg:mr-[88px] rounded">
-            <p className="text-[17.515px] text-text mt-2">Recommended</p>
-            {recommend.map((d) => (
-              <Link
-                href={"/detail/" + d.id}
-                key={d.id}
-                className="flex flex-col-reverse sm:flex-row justify-cente items-center sm:h-[120px] h-[250px] sm:w-[80%]  w-full lg:w-full"
-              >
-                <div className="sm:w-[57%]  w-full flex justify-center items-center sm:h-full h-[35%]">
-                  <p className="flex justify-center items-center ml-4 sm:ml-4 md:ml-none text-[16px] font-bold">
-                    {d.title}
-                  </p>
-                </div>
-                <div className="sm:w-[43%] sm:h-full h-[65%] w-[80%] flex items-center justify-center">
-                  <img
-                    src={`http://localhost:4000/files/${d.imageUrl}`}
-                    className="w-[90%] h-[90%] rounded"
-                  />
-                </div>
-              </Link>
-            ))}
-          </div>
+          {recommend.length == 0 ? (
+            ""
+          ) : (
+            <div className="p-4 lg:mt-[86px] bg-white lg:w-[35%] w-[70%] hidden lg:flex flex-col items-center gap-5 lg:mr-[88px] rounded">
+              <p className="text-[17.515px] text-text mt-2">Recommended</p>
+              {recommend.map((d) => (
+                <Link
+                  href={"/detail/" + d.id}
+                  key={d.id}
+                  className="flex flex-col-reverse sm:flex-row justify-cente items-center sm:h-[120px] h-[250px] sm:w-[80%]  w-full lg:w-full"
+                >
+                  <div className="sm:w-[43%] sm:h-full h-[65%] w-[80%] flex items-center justify-center">
+                    <img
+                      src={`http://localhost:4000/files/${d.imageUrl}`}
+                      className="w-[90%] h-[90%] rounded"
+                    />
+                  </div>
+                  <div className="sm:w-[57%]  w-full flex justify-center items-center sm:h-full h-[35%]">
+                    <p className="flex justify-center items-center ml-4 sm:ml-4 md:ml-none text-[16px] font-bold">
+                      {d.title}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="w-full">
