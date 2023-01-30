@@ -7,7 +7,7 @@ type Props = {
 };
 
 const ImageCard = ({ description, image, location, title }: Props) => {
-  const img = "${process.env.NEXT_PUBLIC_BACKEND_URL}/files/" + image;
+  const img = `${process.env.NEXT_PUBLIC_BACKEND_URL}/files/` + image;
 
   console.log(img);
   return (

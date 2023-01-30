@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, useToast } from "@chakra-ui/react";
 import Head from "next/head";
 import UserNavbar from "../../components/UserNavbar";
@@ -7,24 +7,27 @@ import Link from "next/link";
 import Footer from "../../components/Footer";
 import { NextRouter, useRouter } from "next/router";
 import axiosInstance from "../../lib/axiosInstance";
-import convert from "../../lib/convert";
-import { monthNames } from "../../lib/months";
 import { day, month, timeFunc, year } from "../../lib/timeConverter";
 import { useAuth } from "../../context/AuthContext";
 import swal from "sweetalert";
 import instance from "../../lib/axiosInstance";
 import { MdBookmarkRemove } from "react-icons/md";
+import {
+  AiFillDislike,
+  AiFillLike,
+  AiOutlineDislike,
+  AiOutlineLike,
+} from "react-icons/ai";
 
 type Data = {
   id: string;
   title: string;
   description: string;
   imageUrl: string;
+  sources: string | null;
   createdAt: Date;
   user: {
-    shortName: string;
     name: string;
-    logo: string;
   };
   content: {
     id: string;
@@ -43,10 +46,46 @@ type Reco = {
   imageUrl: string;
 }[];
 
+type IsLiked = {
+  isLiked: boolean;
+};
+type IsUnliked = {
+  isUnliked: boolean;
+};
+
+type NumOfLiked = {
+  num: Number;
+};
+
 const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
   const user = useAuth().user;
+  const [isLiked, setIsLiked] = useState<IsLiked>({ isLiked: false });
+  const [isUnliked, setIsUnliked] = useState<IsUnliked>({ isUnliked: false });
+  const [numOfLiked, setNumOfLiked] = useState<NumOfLiked>({ num: 0 });
   const router = useRouter();
   const toast = useToast();
+
+  async function fetchData() {
+    if (user) {
+      const { data } = await instance.post("/post/isLiked", {
+        postId: post.id,
+      });
+      setIsLiked(data);
+      const { data: unlike } = await instance.post("/post/isUnliked", {
+        postId: post.id,
+      });
+      setIsUnliked(unlike);
+    }
+
+    const { data: num } = await instance.post("/post/numOfLiked", {
+      postId: post.id,
+    });
+    setNumOfLiked(num);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleRedirect = () => {
     swal({
@@ -93,6 +132,27 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
       });
     }
   };
+
+  const handleLike = async () => {
+    try {
+      const { data } = await instance.post("/post/like", { postId: post.id });
+      setIsLiked(data);
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleUnlike = async () => {
+    try {
+      const { data } = await instance.post("/post/unlike", { postId: post.id });
+      setIsUnliked(data);
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(post);
 
   const handleRemove = () => {
     swal({
@@ -155,7 +215,6 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
                       <div className="flex gap-2 items-center">
                         <Avatar
                           name={post?.user.name}
-                          src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/files/${post?.user.logo}`}
                           className="object-contain object-center -z-10"
                         />
                         <div>
@@ -210,6 +269,60 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
                       {post?.title}
                     </p>
                     <p>{post?.description}</p>
+                  </div>
+                  <div>
+                    {post.sources ? (
+                      <p className="font-bold italic mt-4">
+                        Sources: {post.sources}
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className="flex gap-12 text-xl mt-4">
+                    <div className="flex gap-2 justify-center items-center">
+                      {isLiked?.isLiked ? (
+                        <AiFillLike
+                          className="cursor-pointer"
+                          onClick={handleLike}
+                        />
+                      ) : (
+                        <AiOutlineLike
+                          className="cursor-pointer"
+                          onClick={handleLike}
+                        />
+                      )}
+                      {/* @ts-ignore */}
+                      <p>{numOfLiked.num}</p>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      {isUnliked.isUnliked ? (
+                        <AiFillDislike
+                          className="cursor-pointer"
+                          onClick={handleUnlike}
+                        />
+                      ) : (
+                        <AiOutlineDislike
+                          className="cursor-pointer"
+                          onClick={handleUnlike}
+                        />
+                      )}
+                    </div>
+                  </div>
+                  <div className="max-w-lg">
+                    <form action="" className="w-full p-4">
+                      <label className="block mb-2">
+                        <span className="text-gray-600">Add a comment</span>
+                        <textarea
+                          className="block w-full mt-1 outline-none p-2 rounded"
+                          // @ts-ignore
+                          rows="3"
+                        ></textarea>
+                      </label>
+                      <button className="px-3 py-2 text-sm text-white bg-primary rounded">
+                        Comment
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>
