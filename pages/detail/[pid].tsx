@@ -57,35 +57,50 @@ type NumOfLiked = {
   num: Number;
 };
 
+type Comments = {
+  id: string;
+  name: string;
+  user: {
+    name: string;
+  };
+}[];
+
 const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
   const user = useAuth().user;
   const [isLiked, setIsLiked] = useState<IsLiked>({ isLiked: false });
   const [isUnliked, setIsUnliked] = useState<IsUnliked>({ isUnliked: false });
   const [numOfLiked, setNumOfLiked] = useState<NumOfLiked>({ num: 0 });
+  const [comments, setComments] = useState<Comments>([]);
+  const [comment, setComment] = useState("");
   const router = useRouter();
   const toast = useToast();
+
+  async function fetchComments() {
+    const { data } = await instance.post("/post/getAllComments", {
+      postId: router.query.pid,
+    });
+    setComments(data);
+  }
 
   async function fetchData() {
     if (user) {
       const { data } = await instance.post("/post/isLiked", {
-        postId: post.id,
+        postId: router.query.pid,
       });
       setIsLiked(data);
       const { data: unlike } = await instance.post("/post/isUnliked", {
-        postId: post.id,
+        postId: router.query.pid,
       });
       setIsUnliked(unlike);
     }
 
     const { data: num } = await instance.post("/post/numOfLiked", {
-      postId: post.id,
+      postId: router.query.pid,
     });
     setNumOfLiked(num);
   }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  console.log(isUnliked, isLiked);
 
   const handleRedirect = () => {
     swal({
@@ -105,7 +120,7 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
     try {
       const { data: bookmark } = await instance.post("/post/bookmark", {
         userId: user.id,
-        postId: post.id,
+        postId: router.query.pid,
       });
 
       console.log(bookmark);
@@ -135,7 +150,9 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
 
   const handleLike = async () => {
     try {
-      const { data } = await instance.post("/post/like", { postId: post.id });
+      const { data } = await instance.post("/post/like", {
+        postId: router.query.pid,
+      });
       setIsLiked(data);
       fetchData();
     } catch (error) {
@@ -144,15 +161,15 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
   };
   const handleUnlike = async () => {
     try {
-      const { data } = await instance.post("/post/unlike", { postId: post.id });
+      const { data } = await instance.post("/post/unlike", {
+        postId: router.query.pid,
+      });
       setIsUnliked(data);
       fetchData();
     } catch (error) {
       console.log(error);
     }
   };
-
-  console.log(post);
 
   const handleRemove = () => {
     swal({
@@ -168,7 +185,7 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
             "/post/removeBookmark",
             {
               userId: user.id,
-              postId: post.id,
+              postId: router.query.pid,
             }
           );
 
@@ -196,6 +213,35 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
       }
     });
   };
+
+  async function handleSubmit(e: any) {
+    e.preventDefault();
+
+    if (!user) {
+      toast({
+        // @ts-ignore
+        title: "You need to login to comment",
+        variant: "left-accent",
+        isClosable: true,
+        status: "error",
+        position: "bottom-left",
+      });
+    } else {
+      const { data } = await instance.post("/post/comments", {
+        name: comment,
+        postId: router.query.pid,
+      });
+
+      setComment("");
+
+      fetchComments();
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+    fetchComments();
+  }, [router.query.pid]);
 
   return (
     <div className="relative min-h-screen">
@@ -310,19 +356,99 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
                     </div>
                   </div>
                   <div className="max-w-lg">
-                    <form action="" className="w-full p-4">
+                    <form onSubmit={handleSubmit} className="w-full p-4">
                       <label className="block mb-2">
                         <span className="text-gray-600">Add a comment</span>
                         <textarea
                           className="block w-full mt-1 outline-none p-2 rounded"
                           // @ts-ignore
                           rows="3"
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
                         ></textarea>
                       </label>
                       <button className="px-3 py-2 text-sm text-white bg-primary rounded">
                         Comment
                       </button>
                     </form>
+                  </div>
+                  <div className="mt-8">
+                    <section className="bg-white p-4">
+                      <div className="flex justify-between items-center">
+                        <h2 className="text-lg lg:text-2xl font-bold text-gray-900 ">
+                          Comments ({comments.length})
+                        </h2>
+                      </div>
+                      {comments.map((c) => {
+                        return (
+                          <article className="p-4 text-base bg-white rounded-lg ">
+                            <footer className="flex justify-between items-center mb-2">
+                              <div className="flex items-center">
+                                <p className="inline-flex items-center mr-3 gap-2 text-sm text-gray-900 ">
+                                  <Avatar size="sm" name={c.user.name} />{" "}
+                                  <p>{c.user.name}</p>
+                                </p>
+                              </div>
+                              <button
+                                id="dropdownComment1Button"
+                                data-dropdown-toggle="dropdownComment1"
+                                className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
+                                type="button"
+                              >
+                                <svg
+                                  className="w-5 h-5"
+                                  aria-hidden="true"
+                                  fill="currentColor"
+                                  viewBox="0 0 20 20"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                </svg>
+                                <span className="sr-only">
+                                  Comment settings
+                                </span>
+                              </button>
+                              {/* <!-- Dropdown menu --> */}
+                              <div
+                                id="dropdownComment1"
+                                className="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow"
+                              >
+                                <ul
+                                  className="py-1 text-sm text-gray-700 "
+                                  aria-labelledby="dropdownMenuIconHorizontalButton"
+                                >
+                                  <li>
+                                    <a
+                                      href="#"
+                                      className="block py-2 px-4 hover:bg-gray-100"
+                                    >
+                                      Edit
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      href="#"
+                                      className="block py-2 px-4 hover:bg-gray-100"
+                                    >
+                                      Remove
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      href="#"
+                                      className="block py-2 px-4 hover:bg-gray-100"
+                                    >
+                                      Report
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </footer>
+                            <p className="text-gray-500">{c.name}</p>
+                          </article>
+                        );
+                      })}
+                    </section>
                   </div>
                 </div>
               </div>
