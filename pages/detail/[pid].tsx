@@ -238,10 +238,26 @@ const Detail = ({ post, recommend }: { post: Data; recommend: Reco }) => {
     }
   }
 
+  async function customize() {
+    let customize = {};
+    if (user) {
+      customize = await instance.post("/post/customize", {
+        contentId: post.content.id,
+      });
+    }
+    console.log("customize", customize);
+  }
+
   useEffect(() => {
     fetchData();
     fetchComments();
   }, [router.query.pid]);
+
+  let count = 0;
+  useEffect(() => {
+    if (count == 0) customize();
+    count++;
+  }, []);
 
   return (
     <div className="relative min-h-screen">
