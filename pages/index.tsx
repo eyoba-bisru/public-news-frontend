@@ -86,10 +86,10 @@ const Home = () => {
   );
 };
 
-// export async function getServerSideProps() {
-//   const { data } = await axiosInstance.get<Data>("post/postsHome");
+export async function getServerSideProps() {
+  const { data } = await axiosInstance.post("/post/addVistor");
 
-//   return { props: { data } };
-// }
+  return { props: { data } };
+}
 
 export default Home;
