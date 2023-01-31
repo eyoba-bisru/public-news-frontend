@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import Link from "next/link";
+import React, { ReactNode } from 'react'
+import Link from 'next/link'
 import {
   IconButton,
   Avatar,
@@ -19,53 +19,55 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-} from "@chakra-ui/react";
-import { FiMenu, FiChevronDown } from "react-icons/fi";
+} from '@chakra-ui/react'
+import { FiMenu, FiChevronDown } from 'react-icons/fi'
 
-import { GoDashboard } from "react-icons/go";
-import { RiAdminLine } from "react-icons/ri";
-import { BsGearWideConnected } from "react-icons/bs";
-import { IconType } from "react-icons";
-import { BiAddToQueue } from "react-icons/bi";
-import { ReactText } from "react";
-import { useRouter } from "next/router";
-import { useAuth } from "../context/AuthContext";
+import { GoDashboard, GoReport } from 'react-icons/go'
+import { RiAdminLine } from 'react-icons/ri'
+import { BsGearWideConnected } from 'react-icons/bs'
+import { IconType } from 'react-icons'
+import { BiAddToQueue } from 'react-icons/bi'
+import { ReactText } from 'react'
+import { useRouter } from 'next/router'
+import { useAuth } from '../context/AuthContext'
+import { MdReport } from 'react-icons/md'
 
 interface LinkItemProps {
-  name: string;
-  icon: IconType;
-  route: string;
+  name: string
+  icon: IconType
+  route: string
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Dashboard", icon: GoDashboard, route: "/admin" },
-  { name: "News Companies", icon: BiAddToQueue, route: "/admin/company" },
+  { name: 'Dashboard', icon: GoDashboard, route: '/admin' },
+  { name: 'News Companies', icon: BiAddToQueue, route: '/admin/company' },
+
   {
-    name: "Configuration",
-    icon: BsGearWideConnected,
-    route: "/admin/configuration",
+    name: 'Report',
+    icon: GoReport,
+    route: '/admin/report',
   },
-];
+]
 
 export default function SidebarWithHeader({
   children,
 }: {
-  children: ReactNode;
+  children: ReactNode
 }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <Box minH="100vh" bg="gray.100">
+    <Box minH='100vh' bg='gray.100'>
       <SidebarContent
         onClose={() => onClose}
-        display={{ base: "none", md: "block" }}
+        display={{ base: 'none', md: 'block' }}
       />
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
-        placement="left"
+        placement='left'
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full"
+        size='full'
       >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
@@ -73,46 +75,46 @@ export default function SidebarWithHeader({
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4" bg="#CCC9A1">
+      <Box ml={{ base: 0, md: 60 }} p='4' bg='#CCC9A1'>
         {children}
       </Box>
     </Box>
-  );
+  )
 }
 
 interface SidebarProps extends BoxProps {
-  onClose: () => void;
+  onClose: () => void
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
-      transition="3s ease"
-      bg="#4C230A"
-      borderRight="1px"
+      transition='3s ease'
+      bg='#4C230A'
+      borderRight='1px'
       //   borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: 60 }}
-      pos="fixed"
-      h="full"
+      w={{ base: 'full', md: 60 }}
+      pos='fixed'
+      h='full'
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontWeight="bold" color="white">
-          <div className="flex justify-center items-center gap-4">
+      <Flex h='20' alignItems='center' mx='8' justifyContent='space-between'>
+        <Text fontSize='2xl' fontWeight='bold' color='white'>
+          <div className='flex justify-center items-center gap-4'>
             <RiAdminLine />
             Admin
           </div>
         </Text>
         <CloseButton
-          color="white"
-          display={{ base: "flex", md: "none" }}
+          color='white'
+          display={{ base: 'flex', md: 'none' }}
           onClick={onClose}
         />
       </Flex>
       {LinkItems.map((link) => (
         <NavItem
           key={link.name}
-          className="my-2"
+          className='my-2'
           icon={link.icon}
           route={link.route}
         >
@@ -120,39 +122,39 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </NavItem>
       ))}
     </Box>
-  );
-};
+  )
+}
 
 interface NavItemProps extends FlexProps {
-  icon: IconType;
-  route: string;
-  children: ReactText;
+  icon: IconType
+  route: string
+  children: ReactText
 }
 const NavItem = ({ icon, route, children, ...rest }: NavItemProps) => {
-  const router = useRouter();
+  const router = useRouter()
   return (
-    <Link href={route} style={{ textDecoration: "none" }}>
+    <Link href={route} style={{ textDecoration: 'none' }}>
       <Flex
-        align="center"
-        p="4"
-        mx="4"
-        bg={`${router.asPath == route ? "#A53F2B" : "#4C230A"}`}
-        color="white"
-        borderRadius="lg"
-        role="group"
-        cursor="pointer"
+        align='center'
+        p='4'
+        mx='4'
+        bg={`${router.asPath == route ? '#A53F2B' : '#4C230A'}`}
+        color='white'
+        borderRadius='lg'
+        role='group'
+        cursor='pointer'
         _hover={{
-          bg: "#A53F2B",
-          color: "white",
+          bg: '#A53F2B',
+          color: 'white',
         }}
         {...rest}
       >
         {icon && (
           <Icon
-            mr="4"
-            fontSize="16"
+            mr='4'
+            fontSize='16'
             _groupHover={{
-              color: "white",
+              color: 'white',
             }}
             as={icon}
           />
@@ -160,82 +162,82 @@ const NavItem = ({ icon, route, children, ...rest }: NavItemProps) => {
         {children}
       </Flex>
     </Link>
-  );
-};
+  )
+}
 
 interface MobileProps extends FlexProps {
-  onOpen: () => void;
+  onOpen: () => void
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  const { user } = useAuth();
+  const { user } = useAuth()
 
-  const logout = useAuth().logout;
+  const logout = useAuth().logout
 
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
-      height="20"
-      alignItems="center"
-      bg="#F0FFCE"
-      borderBottomWidth="1px"
-      borderBottomColor="gray.200"
-      justifyContent={{ base: "space-between", md: "flex-end" }}
+      height='20'
+      alignItems='center'
+      bg='#F0FFCE'
+      borderBottomWidth='1px'
+      borderBottomColor='gray.200'
+      justifyContent={{ base: 'space-between', md: 'flex-end' }}
       {...rest}
     >
       <IconButton
-        display={{ base: "flex", md: "none" }}
+        display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
-        variant="outline"
-        aria-label="open menu"
+        variant='outline'
+        aria-label='open menu'
         icon={<FiMenu />}
       />
 
       <Text
-        display={{ base: "flex", md: "none" }}
-        fontSize="2xl"
-        fontWeight="bold"
+        display={{ base: 'flex', md: 'none' }}
+        fontSize='2xl'
+        fontWeight='bold'
       >
-        <div className="flex justify-center items-center gap-4">
+        <div className='flex justify-center items-center gap-4'>
           <RiAdminLine />
           Admin
         </div>
       </Text>
 
-      <HStack spacing={{ base: "0", md: "6" }}>
-        <Flex alignItems={"center"}>
+      <HStack spacing={{ base: '0', md: '6' }}>
+        <Flex alignItems={'center'}>
           <Menu>
             <MenuButton
               py={2}
-              transition="all 0.3s"
-              _focus={{ boxShadow: "none" }}
+              transition='all 0.3s'
+              _focus={{ boxShadow: 'none' }}
             >
               <HStack>
                 <Avatar
-                  size={"sm"}
+                  size={'sm'}
                   src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/files/${user.logo}`}
                 />
                 <VStack
-                  display={{ base: "none", md: "flex" }}
-                  alignItems="flex-start"
-                  spacing="1px"
-                  ml="2"
+                  display={{ base: 'none', md: 'flex' }}
+                  alignItems='flex-start'
+                  spacing='1px'
+                  ml='2'
                 >
-                  <Text fontSize="sm">{user.name}</Text>
-                  <Text fontSize="xs" color="gray.600">
+                  <Text fontSize='sm'>{user.name}</Text>
+                  <Text fontSize='xs' color='gray.600'>
                     Admin
                   </Text>
                 </VStack>
-                <Box display={{ base: "none", md: "flex" }}>
+                <Box display={{ base: 'none', md: 'flex' }}>
                   <FiChevronDown />
                 </Box>
               </HStack>
             </MenuButton>
-            <MenuList bg="#F0FFCE" borderColor="gray.200">
-              <Link href="/admin/changepassword">
+            <MenuList bg='#F0FFCE' borderColor='gray.200'>
+              <Link href='/admin/changepassword'>
                 <MenuItem>Change password</MenuItem>
               </Link>
-              <MenuItem bg="#F0FFCE" onClick={logout}>
+              <MenuItem bg='#F0FFCE' onClick={logout}>
                 Logout
               </MenuItem>
             </MenuList>
@@ -243,5 +245,5 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         </Flex>
       </HStack>
     </Flex>
-  );
-};
+  )
+}
