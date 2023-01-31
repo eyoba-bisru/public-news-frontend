@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import ImageCard from "../components/ImageCard";
 import UserNavbar from "../components/UserNavbar";
@@ -19,8 +19,17 @@ type Data = {
   };
 }[];
 
-const Home = ({ data }: { data: Data }) => {
-  console.log(data);
+const Home = () => {
+  const [data, setData] = useState<Data>([]);
+
+  async function fetchData() {
+    const { data } = await axiosInstance.get<Data>("post/postsHome");
+    setData(data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -77,10 +86,10 @@ const Home = ({ data }: { data: Data }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const { data } = await axiosInstance.get<Data>("post/postsHome");
+// export async function getServerSideProps() {
+//   const { data } = await axiosInstance.get<Data>("post/postsHome");
 
-  return { props: { data } };
-}
+//   return { props: { data } };
+// }
 
 export default Home;
