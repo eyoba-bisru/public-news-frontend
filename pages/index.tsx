@@ -67,17 +67,19 @@ const Home = () => {
           </div>
 
           <div className="w-full grid place-content-center my-8">
-            <Button
-              rightIcon={<AiFillRightCircle />}
-              background="#4C230A"
-              color="white"
-              _hover={{ background: "#A53F2B" }}
-              _active={{ background: "#A53F2B" }}
-              fontSize="lg"
-              height="12"
-            >
-              Explore More
-            </Button>
+            <Link href="/search">
+              <Button
+                rightIcon={<AiFillRightCircle />}
+                background="#4C230A"
+                color="white"
+                _hover={{ background: "#A53F2B" }}
+                _active={{ background: "#A53F2B" }}
+                fontSize="lg"
+                height="12"
+              >
+                Explore More
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
