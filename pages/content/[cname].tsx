@@ -20,9 +20,6 @@ type Data = {
       name: string;
     };
     createdAt: Date;
-    user: {
-      shortName: string;
-    };
   }[];
   count: number;
 };

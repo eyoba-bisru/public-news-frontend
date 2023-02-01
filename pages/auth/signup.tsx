@@ -40,7 +40,6 @@ const SignUp = () => {
 
     onSubmit: async (values, { resetForm }) => {
       setLoading(true);
-      alert(JSON.stringify(values, null, 2));
 
       context.signup(values.email, values.password, values.name, resetForm);
       setLoading(false);

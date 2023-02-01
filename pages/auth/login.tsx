@@ -32,7 +32,6 @@ const Login = () => {
 
     onSubmit: async (values, { resetForm }) => {
       setLoading(true);
-      alert(JSON.stringify(values, null, 2));
 
       context.login(values.email, values.password, resetForm);
       setLoading(false);

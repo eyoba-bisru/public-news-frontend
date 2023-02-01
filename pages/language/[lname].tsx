@@ -1,26 +1,45 @@
 import Head from "next/head";
 import Link from "next/link";
 import { NextRouter, useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import CategoryCard from "../../components/CategoryCard";
 import Footer from "../../components/Footer";
 import UserNavbar from "../../components/UserNavbar";
+import instance from "../../lib/axiosInstance";
 import axiosInstance from "../../lib/axiosInstance";
 import { day, month, timeFunc, year } from "../../lib/timeConverter";
 
 type Data = {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  contentId: string;
-  language: {
-    name: string;
-  };
-  createdAt: Date;
-}[];
+  posts: {
+    id: string;
+    title: string;
+    description: string;
+    imageUrl: string;
+    languageId: string;
+    language: {
+      name: string;
+    };
+    createdAt: Date;
+  }[];
+  count: number;
+};
 
 const Category = ({ data }: { data: Data }) => {
   const router = useRouter();
+  const [allData, setAllData] = useState<Data>({ posts: [], count: 0 });
+  useEffect(() => {
+    setAllData(data);
+  }, [router.query.lname]);
+
+  async function handleLoadMore() {
+    const { data: loadMore } = await instance.post("/post/loadMoreLanguage", {
+      languageId: allData.posts[0].languageId,
+      id: allData.posts[allData.posts.length - 1].id,
+    });
+    setAllData((prev) => {
+      return { ...prev, posts: [...prev.posts, ...loadMore] };
+    });
+  }
   return (
     <>
       <Head>
@@ -30,14 +49,14 @@ const Category = ({ data }: { data: Data }) => {
 
       <div className="w-full flex justify-center items-center">
         <div className="py-[46.8px] px-6 w-screen max-w-[1200px]">
-          {data.length == 0 ? (
+          {allData.posts.length == 0 ? (
             <p className="text-center mt-10 text-3xl text-red-700">
               No news are posted in this category
             </p>
           ) : (
             <>
               <div className="mt-4 gap-4 grid lg:grid-cols-2 place-content-center">
-                {data.map((d) => (
+                {allData.posts.map((d) => (
                   <Link key={d.id} href={`/detail/${d.id}`}>
                     <CategoryCard
                       description={d.description}
@@ -51,11 +70,18 @@ const Category = ({ data }: { data: Data }) => {
                   </Link>
                 ))}
               </div>
-              <div className="w-full grid place-content-center mt-8">
-                <button className="bg-primary hover:bg-secondary text-white px-12 py-3 rounded-md">
-                  Load more
-                </button>
-              </div>
+              {allData.count <= allData.posts?.length ? (
+                ""
+              ) : (
+                <div className="w-full grid place-content-center mt-8">
+                  <button
+                    onClick={handleLoadMore}
+                    className="bg-primary hover:bg-secondary text-white px-12 py-3 rounded-md"
+                  >
+                    Load more
+                  </button>
+                </div>
+              )}
             </>
           )}
         </div>

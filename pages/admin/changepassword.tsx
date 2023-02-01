@@ -35,7 +35,6 @@ const Changepassword = () => {
     }),
 
     onSubmit: async (values, { resetForm }) => {
-      alert(JSON.stringify(values, null, 2));
       try {
         const { data } = await instance.post("/auth/changepassword", {
           oldPassword: values.oldpassword,

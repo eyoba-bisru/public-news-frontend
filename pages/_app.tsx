@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { AuthContextProvider } from "../context/AuthContext";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { NextProgressbarSpinner } from "nextjs-progressbar-spinner";
+import AuthRole from "../components/AuthRole";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -34,10 +35,14 @@ function MyApp({ Component, pageProps }: AppProps) {
           }}
         />
         {noAuthRequired.includes(router.pathname) ? (
-          <Component {...pageProps} />
+          <AuthRole>
+            <Component {...pageProps} />
+          </AuthRole>
         ) : (
           <ProtectedRoute>
-            <Component {...pageProps} />
+            <AuthRole>
+              <Component {...pageProps} />
+            </AuthRole>
           </ProtectedRoute>
         )}
       </ChakraProvider>
