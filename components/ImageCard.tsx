@@ -4,9 +4,10 @@ type Props = {
   description: string;
   location: string;
   image: string;
+  content: string;
 };
 
-const ImageCard = ({ description, image, location, title }: Props) => {
+const ImageCard = ({ description, image, location, title, content }: Props) => {
   const img = `${process.env.NEXT_PUBLIC_BACKEND_URL}/files/` + image;
 
   console.log(img);
@@ -34,6 +35,9 @@ const ImageCard = ({ description, image, location, title }: Props) => {
             <div className="flex gap-1 justify-center items-center">
               <ImLocation2 className="text-green-400" />
               <p>{location}</p>
+            </div>
+            <div className="flex gap-1 justify-center items-center">
+              <p>{content}</p>
             </div>
           </div>
         </div>

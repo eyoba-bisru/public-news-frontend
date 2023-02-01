@@ -17,6 +17,12 @@ type Data = {
   location: {
     name: string;
   };
+  category: {
+    name: string;
+  };
+  content: {
+    name: string;
+  };
 }[];
 
 const Home = () => {
@@ -45,6 +51,7 @@ const Home = () => {
             {data.slice(0, 6).map((d) => (
               <Link key={d.id} href={`/detail/${d.id}`}>
                 <ImageCard
+                  content={d.content.name}
                   title={d.title}
                   description={d.description}
                   image={d.imageUrl}
@@ -58,6 +65,7 @@ const Home = () => {
             {data.slice(6, data.length).map((d) => (
               <Link key={d.id} href={`/detail/${d.id}`}>
                 <Card
+                content={d.content.name}
                   image={d.imageUrl}
                   location={d.location.name}
                   title={d.title}

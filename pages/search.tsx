@@ -22,6 +22,9 @@ type Posts = {
   location: {
     name: string;
   };
+  content: {
+    name: string;
+  };
 }[];
 
 type Props = {
@@ -91,6 +94,7 @@ const search = ({ content, site: sitemap, lang: languages }: Props) => {
               {results.map((result) => (
                 <Link key={result.id} href={`/detail/${result.id}`}>
                   <Card
+                    content={result.content.name}
                     image={result.imageUrl}
                     location={result.location.name}
                     title={result.title}

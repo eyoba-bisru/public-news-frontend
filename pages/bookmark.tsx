@@ -67,11 +67,6 @@ const Category = () => {
                   </Link>
                 ))}
               </div>
-              <div className="w-full grid place-content-center mt-8">
-                <button className="bg-primary hover:bg-secondary text-white px-12 py-3 rounded-md">
-                  Load more
-                </button>
-              </div>
             </>
           )}
         </div>

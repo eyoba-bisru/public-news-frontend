@@ -4,9 +4,10 @@ type Props = {
   image: string;
   title: string;
   location: string;
+  content: string;
 };
 
-const Card = ({ image, title, location }: Props) => {
+const Card = ({ image, title, location, content }: Props) => {
   return (
     <div className="m-auto rounded-md overflow-hidden bg-white shadow-md duration-200 hover:shadow-xl">
       <img
@@ -20,6 +21,9 @@ const Card = ({ image, title, location }: Props) => {
           <div className="flex gap-1 justify-center items-center">
             <ImLocation2 className="text-green-400" />
             <p>{location}</p>
+          </div>
+          <div className="flex gap-1 justify-center items-center">
+            <p>{content}</p>
           </div>
         </div>
       </div>
