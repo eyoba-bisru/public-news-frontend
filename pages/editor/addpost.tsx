@@ -53,6 +53,7 @@ const addpost = () => {
   const formik: any = useFormik({
     initialValues: {
       titles: '',
+      sources: '',
       description: '',
       imageUrl: '',
       selectlocation: '',
@@ -67,6 +68,7 @@ const addpost = () => {
       selectlanguage: Yup.string(),
       selectcontent: Yup.string(),
       imageUrl: Yup.string(),
+      sources: Yup.string(),
     }),
 
     onSubmit: async (values, { resetForm }) => {
@@ -81,6 +83,7 @@ const addpost = () => {
         formData.append('contentId', values.selectcontent)
         formData.append('locationId', values.selectlocation)
         formData.append('languageId', values.selectlanguage)
+        formData.append('sources', values.sources)
         const { data } = await instance.post('/post/addPost', formData)
         toast({
           // @ts-ignore
@@ -107,7 +110,7 @@ const addpost = () => {
         <div className='flex flex-col items-center justify-center gap-2 mb-32'>
           <form onSubmit={formik.handleSubmit} className='flex flex-col gap-4'>
             <div className='flex md:flex-row flex-col gap-4'>
-              <div className='flex flex-col gap-8'>
+              <div className='flex flex-col gap-7'>
                 <div className='flex flex-col gap-2 w-full md:w-[450px]'>
                   <label htmlFor='title' className='text-text font-medium'>
                     Title
@@ -143,13 +146,28 @@ const addpost = () => {
                     onBlur={formik.handleBlur}
                     required
                     id='description'
-                    className='resize-y h-[240px] rounded bg-white appearance-none border-2 border-white w-full py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-primary'
+                    className='resize-y h-[155px] rounded bg-white appearance-none border-2 border-white w-full py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-primary'
                   ></textarea>
                   {formik.touched.description && formik.errors.description ? (
                     <div className='text-red-600 text-sm'>
                       {formik.errors.description}
                     </div>
                   ) : null}
+                </div>
+                <div>
+                  <label htmlFor='title' className='text-text font-medium'>
+                    Source(optional)
+                  </label>
+                  <input
+                    className=' bg-white rounded appearance-none border-2 border-white w-full py-2 px-4  leading-tight focus:outline-none focus:bg-white focus:border-primary'
+                    id='title'
+                    onChange={formik.handleChange}
+                    value={formik.values.sources}
+                    name='sources'
+                    onBlur={formik.handleBlur}
+                    type='text'
+                    placeholder='#EBC, #BBC'
+                  />
                 </div>
               </div>
               <div className='flex flex-col gap-8 w-full md:w-[450px]'>
