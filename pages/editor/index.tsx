@@ -7,7 +7,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import instance from '../../lib/axiosInstance'
 import { useEffect, useState } from 'react'
-
+import swal from 'sweetalert'
+import { useToast } from '@chakra-ui/react'
 type Data = {
   id: string
   title: string
@@ -24,12 +25,36 @@ type Data = {
 
 const posts = () => {
   const [news, setNews] = useState<Data>([])
+  const toast = useToast()
 
   async function fetchData() {
     const { data } = await instance.get('/post/postedNews')
     setNews(data)
   }
-
+  const handleClick = (id: string) => {
+    console.log(id)
+    swal({
+      title: 'Are you sure you want to delete?',
+      icon: 'warning',
+      //@ts-ignore
+      buttons: true,
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        //@ts-ignore
+        await instance.delete('/post/deletePost', { data: { id } })
+        toast({
+          // @ts-ignore
+          title: 'Deletion success',
+          variant: 'left-accent',
+          isClosable: true,
+          status: 'success',
+          position: 'bottom-left',
+        })
+        fetchData()
+      }
+    })
+  }
   useEffect(() => {
     fetchData()
   }, [])
@@ -117,12 +142,15 @@ const posts = () => {
                               <BiShow />
                             </Link>
                             <Link
-                              href='editor/editpost'
+                              href={`editor/edit/${n.id}`}
                               className='bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 border border-green-500 rounded'
                             >
                               <FiEdit />
                             </Link>
-                            <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded'>
+                            <button
+                              onClick={() => handleClick(n.id)}
+                              className='bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded'
+                            >
                               <MdDeleteForever />
                             </button>
                           </span>
