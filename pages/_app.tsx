@@ -7,6 +7,7 @@ import { AuthContextProvider } from "../context/AuthContext";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { NextProgressbarSpinner } from "nextjs-progressbar-spinner";
 import AuthRole from "../components/AuthRole";
+import ProtectedLoginRoute from "../components/ProtectedLoginRoute";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -21,6 +22,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     "/search",
     "/detail/[pid]",
     "/weather/weather",
+    "/auth/reset",
+    "/auth/forgot",
   ];
 
   return (
@@ -36,7 +39,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         {noAuthRequired.includes(router.pathname) ? (
           <AuthRole>
-            <Component {...pageProps} />
+            <ProtectedLoginRoute>
+              <Component {...pageProps} />
+            </ProtectedLoginRoute>
           </AuthRole>
         ) : (
           <ProtectedRoute>
