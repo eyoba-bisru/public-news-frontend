@@ -123,6 +123,7 @@ export const AuthContextProvider = ({
         status: "success",
         position: "bottom-left",
       });
+      router.reload();
     } catch (error) {
       console.log(error);
 

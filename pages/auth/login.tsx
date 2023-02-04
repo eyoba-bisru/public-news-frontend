@@ -32,7 +32,6 @@ const Login = () => {
 
     onSubmit: async (values, { resetForm }) => {
       setLoading(true);
-
       context.login(values.email, values.password, resetForm);
       setLoading(false);
     },
@@ -111,9 +110,12 @@ const Login = () => {
             </p>
           </div>
         </div>
-        <p className="text-center underline text-primary cursor-pointer mt-4 text-sm">
-          Forgot your password?
-        </p>
+        <Link
+          href="/auth/forgot"
+          className="text-center underline text-primary cursor-pointer mt-4 text-sm"
+        >
+          <p>Forgot your password?</p>
+        </Link>
       </div>
     </div>
   );

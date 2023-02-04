@@ -1,12 +1,22 @@
-import { Button, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import {
+  Button,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  useToast,
+} from "@chakra-ui/react";
 import Head from "next/head";
 import UserNavbar from "../../components/UserNavbar";
 import { MdEmail } from "react-icons/md";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../../context/AuthContext";
+import instance from "../../lib/axiosInstance";
+import { useState } from "react";
 const Forgot = () => {
-  const context = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const toast = useToast();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -16,7 +26,28 @@ const Forgot = () => {
     }),
 
     onSubmit: async (values, { resetForm }) => {
-      context.login(values.email, resetForm);
+      setIsLoading(true);
+      try {
+        await instance.post("/auth/forgotpassword", { email: values.email });
+        toast({
+          title: "Email sent to your email",
+          position: "bottom-left",
+          isClosable: true,
+          status: "success",
+          variant: "left-accent",
+        });
+        resetForm();
+      } catch (error) {
+        toast({
+          title: "Please check your email address",
+          position: "bottom-left",
+          isClosable: true,
+          status: "error",
+          variant: "left-accent",
+        });
+      }
+
+      setIsLoading(false);
     },
   });
   return (
@@ -66,6 +97,15 @@ const Forgot = () => {
                 marginBottom="3"
               >
                 Reset
+                {isLoading ? (
+                  <img
+                    src="/Spinner2.svg"
+                    width="20px"
+                    height="20px"
+                    alt="spinner"
+                    className="text-white"
+                  />
+                ) : null}
               </Button>
             </form>
           </div>
