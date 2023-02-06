@@ -164,12 +164,12 @@ const posts = () => {
           </div>
         </div>
       </div>
-      <div className='absolute bottom-2 right-[80px]'>
+      {/* <div className='absolute bottom-2 right-[80px]'>
         <p className='text-text text-[11.865px] font-medium'>
           <BiCopyright className='inline' fontSize='14px' />{' '}
           <span>2022 END Media Network</span>
         </p>
-      </div>
+      </div> */}
     </div>
   )
 }
