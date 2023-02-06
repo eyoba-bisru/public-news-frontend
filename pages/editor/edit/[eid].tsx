@@ -9,54 +9,67 @@ import * as Yup from 'yup'
 import { useAuth } from '../../../context/AuthContext'
 import instance from '../../../lib/axiosInstance'
 import { useToast } from '@chakra-ui/react'
+import Router, { NextRouter, useRouter } from 'next/router'
+
+import { log } from 'console'
+
 type Values = {
   id: string
   name: string
 }[]
-type User = {
-  name: string
-  email: string
-  password: string
-  phone: string
-  shortName: string
-  logo: string
+type Data = {
   id: string
-  suspended: boolean
+  title: string
+  description: string
+  imageUrl: string
+  sources: string | null
+  createdAt: Date
+  user: {
+    name: string
+  }
+  content: {
+    id: string
+  }
+  location: {
+    id: string
+  }
+  language: {
+    id: string
+  }
+  bookmark: {
+    userId: string
+    user: {
+      id: string
+    }
+    postId: string
+  }[]
 }
-const editpost = () => {
-  const [locations, setLocations] = useState<Values>([])
-  const [contents, setContents] = useState<Values>([])
-  const [languages, setLanguages] = useState<Values>([])
+
+const editpost = ({
+  loc,
+  lan,
+  con,
+  pst,
+}: {
+  loc: Values
+  lan: Values
+  con: Values
+  pst: Data
+}) => {
+  // const [post, setPost] = useState<Data>(pst)
   const [imageUrl, setImageUrl] = useState('')
   const toast = useToast()
-
-  async function fetchLocations() {
-    const { data } = await instance.get('/configuration/locations')
-    setLocations(data)
-  }
-  async function fetchContents() {
-    const { data } = await instance.get('/configuration/contents')
-    setContents(data)
-  }
-  async function fetchLanguages() {
-    const { data } = await instance.get('/configuration/languages')
-    setLanguages(data)
-  }
-  useEffect(() => {
-    fetchLocations()
-    fetchContents()
-    fetchLanguages()
-  }, [])
-
+  const router = useRouter()
   const formik: any = useFormik({
     initialValues: {
-      titles: '',
-      sources: '',
-      description: '',
+      titles: pst.title,
+      sources: pst.sources,
+      description: pst.description,
+      id: router.query.eid,
       imageUrl: '',
-      selectlocation: '',
-      selectcontent: '',
-      selectlanguage: '',
+      selectlocation: pst.location.id,
+      selectcontent: pst.content.id,
+      selectlanguage: pst.language.id,
     },
 
     validationSchema: Yup.object({
@@ -70,8 +83,6 @@ const editpost = () => {
     }),
 
     onSubmit: async (values, { resetForm }) => {
-      console.log(formik.values.selectlocation)
-
       try {
         const formData = new FormData()
         formData.append('title', values.titles)
@@ -80,11 +91,15 @@ const editpost = () => {
         formData.append('contentId', values.selectcontent)
         formData.append('locationId', values.selectlocation)
         formData.append('languageId', values.selectlanguage)
-        formData.append('sources', values.sources)
-        const { data } = await instance.post('/post/addPost', formData)
+        //@ts-ignore
+        formData.append('source', values.sources)
+        //@ts-ignore
+        formData.append('id', values.id)
+
+        const { data } = await instance.patch('/post/editPost', formData)
         toast({
           // @ts-ignore
-          title: 'News edited successfully',
+          title: 'News posted successfully',
           variant: 'left-accent',
           isClosable: true,
           status: 'success',
@@ -95,12 +110,13 @@ const editpost = () => {
         console.log('hi error')
         console.log(error)
       }
+      router.back()
     },
   })
   return (
     <div>
       <Head>
-        <title>Edit Post</title>
+        <title>Edit Posts</title>
       </Head>
       <div className='flex flex-col gap-10 min-h-screen relative'>
         <Editornav />
@@ -160,7 +176,7 @@ const editpost = () => {
                     id='title'
                     onChange={formik.handleChange}
                     value={formik.values.sources}
-                    name='sources'
+                    name='source'
                     onBlur={formik.handleBlur}
                     type='text'
                     placeholder='#EBC, #BBC'
@@ -181,7 +197,7 @@ const editpost = () => {
                     name='selectlocation'
                     className='rounded bg-white text-sm focus:ring-primary focus:border-primary block w-full py-2.5'
                   >
-                    {locations?.map((location) => (
+                    {loc?.map((location) => (
                       <option key={location.id} value={location.id}>
                         {location.name}
                       </option>
@@ -200,7 +216,7 @@ const editpost = () => {
                     name='selectcontent'
                     className='rounded bg-white border-2 border-white text-sm focus:ring-primary focus:border-primary block w-full py-2.5'
                   >
-                    {contents?.map((content) => (
+                    {con?.map((content) => (
                       <option key={content.id} value={content.id}>
                         {content.name}
                       </option>
@@ -219,7 +235,7 @@ const editpost = () => {
                     name='selectlanguage'
                     className='rounded bg-white border-2 border-white text-sm focus:ring-primary focus:border-primary block w-full p-2.5'
                   >
-                    {languages?.map((language) => (
+                    {lan?.map((language) => (
                       <option key={language.id} value={language.id}>
                         {language.name}
                       </option>
@@ -266,6 +282,18 @@ const editpost = () => {
       </div>
     </div>
   )
+}
+
+export async function getServerSideProps(context: NextRouter) {
+  const { data } = await instance.post<Data>('/post', {
+    id: context.query.eid,
+  })
+  const { data: lo } = await instance.get<Values>('/configuration/locations')
+  const { data: l } = await instance.get<Values>('/configuration/languages')
+  const { data: c } = await instance.get<Values>('/configuration/contents')
+
+  console.log(context.query)
+  return { props: { loc: lo, lan: l, con: c, pst: data } }
 }
 
 export default editpost
