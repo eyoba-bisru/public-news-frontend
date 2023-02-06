@@ -67,7 +67,10 @@ const search = ({ content, site: sitemap, lang: languages }: Props) => {
       </div>
       <div className="flex flex-col gap-4 items-center">
         <div className="flex items-center gap-1 w-full justify-center mt-[66px] relative">
-          <form className="flex items-center gap-2 justify-center">
+          <form
+            className="flex items-center gap-2 justify-center"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <input
               className="bg-white rounded-md border-2 border-white py-[8px] px-4 leading-tight focus:outline-none focus:bg-white focus:border-primary"
               id="title"
@@ -76,12 +79,12 @@ const search = ({ content, site: sitemap, lang: languages }: Props) => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button
+            {/* <button
               type="submit"
               className="text-white bg-primary rounded-md px-2 py-1"
             >
               Search
-            </button>
+            </button> */}
           </form>
         </div>
         <div>

@@ -68,7 +68,7 @@ const Home = () => {
                   </Link>
                 ))}
               </div>
-              {data.length <= 8 ? (
+              {data.length <= 6 ? (
                 ""
               ) : (
                 <>
