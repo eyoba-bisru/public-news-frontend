@@ -11,6 +11,7 @@ export default function Document() {
           rel="stylesheet"
         />
         <link rel="icon" href="/news.png" />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
 
       <body className="font-inter bg-background">
