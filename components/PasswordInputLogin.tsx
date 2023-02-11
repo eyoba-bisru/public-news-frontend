@@ -21,10 +21,9 @@ function PasswordInput({ handleBlur, handleChange, name, value }: Props) {
 
   return (
     <InputGroup size="md">
-      <InputLeftElement
-        pointerEvents="none"
-        children={<BsKeyFill color="#4C230A" />}
-      />
+      <InputLeftElement pointerEvents="none">
+        <BsKeyFill color="#4C230A" />
+      </InputLeftElement>
 
       <Input
         pr="4.5rem"

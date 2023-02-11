@@ -45,7 +45,7 @@ type Data = {
   }[];
 };
 
-const editpost = ({
+const Editpost = ({
   loc,
   lan,
   con,
@@ -294,4 +294,4 @@ export async function getServerSideProps(context: NextRouter) {
   return { props: { loc: lo, lan: l, con: c, pst: data } };
 }
 
-export default editpost;
+export default Editpost;

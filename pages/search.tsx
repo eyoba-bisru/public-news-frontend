@@ -33,7 +33,7 @@ type Props = {
   lang: Data;
 };
 
-const search = ({ content, site: sitemap, lang: languages }: Props) => {
+const Search = ({ content, site: sitemap, lang: languages }: Props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState<Posts>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -158,4 +158,4 @@ export async function getServerSideProps() {
   return { props: { content: content.data, site: site.data, lang: lang.data } };
 }
 
-export default search;
+export default Search;

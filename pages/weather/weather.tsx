@@ -69,17 +69,29 @@ const App = () => {
         harar,
       ]) => {
         setCities([
+          // @ts-ignore
           addis.data,
+          // @ts-ignore
           bahir.data,
+          // @ts-ignore
           gondar.data,
+          // @ts-ignore
           mekele.data,
+          // @ts-ignore
           jima.data,
+          // @ts-ignore
           semera.data,
+          // @ts-ignore
           lalibela.data,
+          // @ts-ignore
           gode.data,
+          // @ts-ignore
           asosa.data,
+          // @ts-ignore
           jiji.data,
+          // @ts-ignore
           harar.data,
+          // @ts-ignore
         ]);
         setIsLoading(false);
       }
@@ -131,58 +143,66 @@ const App = () => {
               alt="spinner"
             />
           ) : (
-            cities.map((city) => {
+            cities.map((city, index) => {
               return (
-                <div className="flex items-center justify-center">
-                  <div className="flex flex-col bg-white rounded p-4 w-full max-w-xs">
-                    <div className="font-bold text-xl">
-                      {city.name}, {city.sys.country}
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      {date.getUTCDate()}/{date.getUTCMonth() + 1}/
-                      {date.getUTCFullYear()}
-                    </div>
-                    <div className="mt-6 text-6xl self-center inline-flex items-center justify-center rounded-lg text-indigo-400 h-24 w-24">
-                      {icons(city)}
-                    </div>
-                    <div className="flex flex-row items-center justify-center mt-6">
-                      <div className="font-medium text-6xl">
-                        {parseInt(city.main.temp)}°
+                <>
+                  <div className="flex items-center justify-center" key={index}>
+                    <div className="flex flex-col bg-white rounded p-4 w-full max-w-xs">
+                      <div className="font-bold text-xl">
+                        {/* @ts-ignore */}
+                        {city.name}, {city.sys.country}
                       </div>
-                      <div className="flex flex-col items-center ml-6">
-                        <div>Feels like</div>
-                        <div className="mt-1">
-                          <span className="text-sm">
-                            <i className="far fa-long-arrow-up"></i>
-                          </span>
-                          <span className="text-sm font-light text-gray-500">
-                            {city.main.feels_like}°
-                          </span>
+                      <div className="text-sm text-gray-500">
+                        {date.getUTCDate()}/{date.getUTCMonth() + 1}/
+                        {date.getUTCFullYear()}
+                      </div>
+                      <div className="mt-6 text-6xl self-center inline-flex items-center justify-center rounded-lg text-indigo-400 h-24 w-24">
+                        {icons(city)}
+                      </div>
+                      <div className="flex flex-row items-center justify-center mt-6">
+                        <div className="font-medium text-6xl">
+                          {/* @ts-ignore */}
+                          {parseInt(city.main.temp)}°
+                        </div>
+                        <div className="flex flex-col items-center ml-6">
+                          <div>Feels like</div>
+                          <div className="mt-1">
+                            <span className="text-sm">
+                              <i className="far fa-long-arrow-up"></i>
+                            </span>
+                            <span className="text-sm font-light text-gray-500">
+                              {/* @ts-ignore */}
+                              {city.main.feels_like}°
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex flex-row justify-between mt-6">
-                      <div className="flex flex-col items-center">
-                        <div className="font-medium text-sm">Wind</div>
-                        <div className="text-sm text-gray-500">
-                          {city.wind.speed}m/s
+                      <div className="flex flex-row justify-between mt-6">
+                        <div className="flex flex-col items-center">
+                          <div className="font-medium text-sm">Wind</div>
+                          <div className="text-sm text-gray-500">
+                            {/* @ts-ignore */}
+                            {city.wind.speed}m/s
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <div className="font-medium text-sm">Humidity</div>
-                        <div className="text-sm text-gray-500">
-                          {city.main.humidity}%
+                        <div className="flex flex-col items-center">
+                          <div className="font-medium text-sm">Humidity</div>
+                          <div className="text-sm text-gray-500">
+                            {/* @ts-ignore */}
+                            {city.main.humidity}%
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <div className="font-medium text-sm">Visibility</div>
-                        <div className="text-sm text-gray-500">
-                          {city.visibility / 1000} km
+                        <div className="flex flex-col items-center">
+                          <div className="font-medium text-sm">Visibility</div>
+                          <div className="text-sm text-gray-500">
+                            {/* @ts-ignore */}
+                            {city.visibility / 1000} km
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </>
               );
             })
           )}

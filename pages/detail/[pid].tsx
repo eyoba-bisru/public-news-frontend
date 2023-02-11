@@ -467,7 +467,10 @@ const Detail = ({ pst, recommend }: { pst: Data; recommend: Reco }) => {
                         </div>
                         {comments.map((c) => {
                           return (
-                            <article className="p-4 text-base bg-white rounded-lg ">
+                            <article
+                              className="p-4 text-base bg-white rounded-lg"
+                              key={c.id}
+                            >
                               <footer className="flex justify-between items-center mb-2">
                                 <div className="flex items-center">
                                   <p className="inline-flex items-center mr-3 gap-2 text-sm text-gray-900 ">
