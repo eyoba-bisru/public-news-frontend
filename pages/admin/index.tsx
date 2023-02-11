@@ -50,7 +50,7 @@ const labels = [
   "Politics",
 ];
 
-const dashboard = () => {
+const Dashboard = () => {
   const [numOfAuthors, setNumOfAuthors] = useState(0);
   const [numOfPosts, setNumOfPosts] = useState(0);
   const [numOfSubs, setNumOfSubs] = useState(0);
@@ -175,4 +175,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;

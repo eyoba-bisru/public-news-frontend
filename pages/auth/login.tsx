@@ -54,10 +54,9 @@ const Login = () => {
               className="flex flex-col justify-center items-start gap-2"
             >
               <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<MdEmail color="#4C230A" />}
-                />
+                <InputLeftElement pointerEvents="none">
+                  {<MdEmail color="#4C230A" />}
+                </InputLeftElement>
                 <Input
                   type="email"
                   name={"email"}
@@ -101,7 +100,7 @@ const Login = () => {
           </div>
           <div className="bg-slate h-12 w-full mt-[20px] flex justify-center items-center rounded-bl-md rounded-br-md">
             <p className="font-medium text-sm">
-              Don't have account?
+              Don&apos;t have account?
               <Link href="/auth/signup">
                 <span className="underline text-secondary ml-1 cursor-pointer">
                   Sign up

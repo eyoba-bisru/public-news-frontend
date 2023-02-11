@@ -25,7 +25,7 @@ type User = {
   suspended: boolean;
 };
 
-const addpost = () => {
+const Addpost = () => {
   const [locations, setLocations] = useState<Values>([]);
   const [contents, setContents] = useState<Values>([]);
   const [languages, setLanguages] = useState<Values>([]);
@@ -270,4 +270,4 @@ const addpost = () => {
   );
 };
 
-export default addpost;
+export default Addpost;

@@ -10,7 +10,6 @@ import UserNavbar from "../../components/UserNavbar";
 import { MdEmail } from "react-icons/md";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useAuth } from "../../context/AuthContext";
 import instance from "../../lib/axiosInstance";
 import { useState } from "react";
 const Forgot = () => {
@@ -67,10 +66,9 @@ const Forgot = () => {
               className="flex flex-col justify-center items-center gap-4"
             >
               <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<MdEmail color="#4C230A" />}
-                />
+                <InputLeftElement pointerEvents="none">
+                  {<MdEmail color="#4C230A" />}
+                </InputLeftElement>
                 <Input
                   type="email"
                   name="email"

@@ -36,7 +36,7 @@ type User = {
   suspended: boolean;
 };
 
-const company = () => {
+const Company = () => {
   const [cname, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -358,4 +358,4 @@ const company = () => {
   );
 };
 
-export default company;
+export default Company;
